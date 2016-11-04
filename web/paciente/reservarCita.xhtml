@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template_user.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="form">
+                    
+                    <p:growl id="growl" life="3000" />
+                    
+                    <div class="ui-fluid">
+                        
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col3,ui-grid-col-3,ui-grid-col-1" layout="grid">
+                            <p:outputLabel value="#{reservarCitaBean.paciente.usuario.persona.tipoDocumento.toUpperCase()}:"/>
+                            <p:inputText id="nroDocumento" placeholder="Nro. Documento" value="#{reservarCitaBean.paciente.usuario.persona.numeroDocumento}" readonly="true"/>
+                        </p:panelGrid>
+                        
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-2" layout="grid">
+                            <p:outputLabel for="nroHistorialClinico" value="Nro. Historial Clinico:"/>
+                            <p:inputText id="nroHistorialClinico" value="#{reservarCitaBean.historialClinico.numeroHistorialClinico}" readonly="true" />
+                            <p:outputLabel for="nombrePaciente" value="Paciente:"/>
+                            <p:inputText id="nombrePaciente" value="#{reservarCitaBean.paciente.usuario.persona.apellidop} #{reservarCitaBean.paciente.usuario.persona.apellidom} #{reservarCitaBean.paciente.usuario.persona.nombre}" readonly="true" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
+                            <p:dataTable id="tableReservaCita" var="turno" value="#{reservarCitaBean.listTurno}" widgetVar="turnosTable" emptyMessage="No hay horarios para este criterio" filteredValue="#{reservarCitaBean.filteredListTurno}" reflow="true" rows="5" paginator="true" >
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <p:outputLabel value="Buscar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('turnosTable').filter()" style="width: 150px" placeholder="Enter keyword" />
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:column filterBy="#{turno.medico.especialidad.nombre}" headerText="Especialidad" footerText="contains" filterMatchMode="contains" visible="true">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('turnosTable').filter()" autoWidth="false" panelStyle="width:75px" effect="fold">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                            <f:selectItems value="#{reservarCitaBean.listEspecialidad}" var="especialidad" itemValue="#{especialidad.nombre}"  itemLabel="#{especialidad.nombre}" />
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                    <p:outputLabel value="#{turno.medico.especialidad.nombre}" />
+                                </p:column>
+                                <p:column headerText="Apellido Paterno">
+                                    <p:outputLabel value="#{turno.medico.usuario.persona.apellidop}" />
+                                </p:column>
+                                <p:column headerText="Apellido Materno">
+                                    <p:outputLabel value="#{turno.medico.usuario.persona.apellidom}" />
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <p:outputLabel value="#{turno.medico.usuario.persona.nombre}" />
+                                </p:column>
+                                <p:column headerText="Fecha">
+                                    <p:outputLabel value="#{turno.horaInicio}">
+                                        <f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT-5" />
+                                    </p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Horario">
+                                    <p:outputLabel value="#{turno.horaInicio}">
+                                        <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                    </p:outputLabel>
+                                    <p:outputLabel value=" - " />
+                                    <p:outputLabel value="#{turno.horaFin}">
+                                        <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                    </p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Accion" style="width: 100px; text-align: center;" >
+                                    <p:panelGrid columns="2" styleClass="tableNoBorder">
+                                        <p:commandButton update=":form:turnoDetail" oncomplete="PF('turnoDialog').show()" icon="ui-icon-search" title="Ver" >
+                                            <f:setPropertyActionListener value="#{turno}" target="#{reservarCitaBean.selectedTurno}" />
+                                        </p:commandButton>
+                                        <p:commandButton id="btnReservar" actionListener="#{reservarCitaBean.reservarCita}" update=":form:growl" icon="fa fa-book" title="Reservar" >
+                                            <f:attribute name="codTurno" value="#{turno.codTurno}" />
+                                            <p:confirm header="Confirmacion" message="¿Reservar cita en este turno?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                            </p:confirmDialog>
+                            
+                            <p:dialog header="Informacion turno" widgetVar="turnoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+                                <p:outputPanel id="turnoDetail" style="text-align: center">
+                                    <p:panelGrid columns="2" rendered="#{not empty reservarCitaBean.selectedTurno}" columnClasses="label,value">
+                                        <f:facet name="header">
+                                            Turno
+                                        </f:facet>
+                                        <p:outputLabel value="Medico:" />
+                                        <p:outputLabel value="#{reservarCitaBean.selectedTurno.medico.usuario.persona.nombre} #{reservarCitaBean.selectedTurno.medico.usuario.persona.apellidop} #{reservarCitaBean.selectedTurno.medico.usuario.persona.apellidom}" />
+                                        <p:outputLabel value="Hora Incio:" />
+                                        <p:outputLabel value="#{reservarCitaBean.selectedTurno.horaInicio}">
+                                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Hora Fin:" />
+                                        <p:outputLabel value="#{reservarCitaBean.selectedTurno.horaFin}">
+                                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                        </p:outputLabel>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                        </p:panelGrid>
+                        
+                    </div>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

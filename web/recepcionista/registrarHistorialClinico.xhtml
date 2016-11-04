@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template_user.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        
+        <h:form>
+                 
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:wizard flowListener="#{registrarHistorialClinicoBean.onFlowProcess}" backLabel="Atras" nextLabel="Siguiente" >
+                <p:tab id="personal" title="Personal">
+                    <p:panel header="Datos Personales">
+                        <p:messages />
+                        <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
+                            <p:outputLabel for="tipoDocumento" value="Tipo Documento:" />
+                            <p:selectOneMenu id="tipoDocumento" value="#{registrarHistorialClinicoBean.persona.tipoDocumento}" required="true" style="width:125px">
+                                <p:ajax update="dni"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="DNI" itemValue="dni" />
+                                <f:selectItem itemLabel="Pasaporte" itemValue="pasaporte" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Numero Documento: *" />
+                            <p:inputText id="dni" value="#{registrarHistorialClinicoBean.persona.numeroDocumento}" required="true" label="Numero Documento">
+                                <p:keyFilter regEx="/[\d\.]/"/>
+                                <f:validateLength minimum="#{registrarHistorialClinicoBean.persona.tipoDocumento.equalsIgnoreCase('dni') ? 8 : 10}" maximum="#{registrarHistorialClinicoBean.persona.tipoDocumento.equalsIgnoreCase('dni') ? 8 : 10}" />
+                            </p:inputText>
+
+                            <p:outputLabel value="Nombre: *" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.nombre}" required="true" label="Nombre">
+                                <p:keyFilter regEx="/[a-z_]/i"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Apellido Paterno: *" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidop}" required="true" label="Nombre">
+                                <p:keyFilter regEx="/[a-z_]/i"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Apellido Materno: *" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidom}" required="true" label="Nombre">
+                                <p:keyFilter regEx="/[a-z_]/i"/>
+                            </p:inputText>
+
+                            <p:outputLabel for="sexo" value="Sexo" />
+                            <p:selectOneMenu id="sexo" value="#{registrarHistorialClinicoBean.persona.sexo}" required="true" style="width:125px">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Femenino" itemValue="F" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Fecha Nacimiento: " />
+                            <p:calendar value="#{registrarHistorialClinicoBean.persona.fechaNacimiento}" effect="fold" timeZone="GMT-5" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Inserte fecha de nacimiento" showButtonPanel="true" locale="es"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="usuario" title="Usuario">
+                    <p:panel header="Usuario">
+                        <p:messages />
+                        <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
+                            <p:outputLabel value="Usuario: " />
+                            <p:inputText value="#{registrarHistorialClinicoBean.usuario.username}" required="true" requiredMessage="Debe ingresar nombre de usuario">
+                                <p:keyFilter regEx="/[a-z0-9_]/i"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Contrasena: " />
+                            <p:password value="#{registrarHistorialClinicoBean.usuario.password}" feedback="true" inline="true" required="true" requiredMessage="Debe ingresar una contrasena" />
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirmacion" title="Confirmacion">
+                    <p:panel header="Confirmacion">
+                        <p:panelGrid id="confirmation" columns="2" columnClasses="grid,grid,grid" styleClass="tableNoBorder">
+                            <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.persona.tipoDocumento}" />
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.persona.numeroDocumento}" styleClass="outputLabel"/>
+
+                                <p:outputLabel value="Nombre: " />
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.persona.nombre} #{registrarHistorialClinicoBean.persona.apellidop} #{registrarHistorialClinicoBean.persona.apellidom}" styleClass="outputLabel"/>
+
+                                <p:outputLabel value="SEXO: " />
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.persona.sexo == 'M' ? 'Masculino' : 'Femenino'}" styleClass="outputLabel"/>
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
+                                <p:outputLabel value="Usuario: " />
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.usuario.username}" styleClass="outputLabel"/>
+                            </p:panelGrid>
+                        </p:panelGrid>
+
+                        <p:commandButton value="Registrar" action="#{registrarHistorialClinicoBean.registrarHistorialClinico()}" update="growl" process="@this"/>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

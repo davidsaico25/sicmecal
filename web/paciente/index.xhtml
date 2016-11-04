@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template_user.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form>
+                    <p:growl id="messages" showDetail="true" />
+                    
+                    <h:panelGrid columnClasses="value">
+                        
+                        <h3>Horario Citas</h3>
+                        <p:schedule value="#{indexPacienteBean.lazyEventModel}" timeZone="GMT-5" resizable="false" draggable="false" locale="es"/>
+                        
+                    </h:panelGrid>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

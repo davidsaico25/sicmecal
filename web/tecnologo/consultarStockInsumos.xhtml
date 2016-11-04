@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template_user.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="form">
+                    
+                    <p:growl id="growl" life="3000" />
+                    
+                    <div class="ui-fluid">
+                        
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col3,ui-grid-col-3,ui-grid-col-1" layout="grid">
+                            <p:outputLabel value="#{consultarStockBean.usuario.persona.tipoDocumento.toUpperCase()}:"/>
+                            <p:inputText id="nroDocumento" placeholder="Nro. Documento" value="#{consultarStockBean.usuario.persona.numeroDocumento}" readonly="true"/>
+                        </p:panelGrid>
+                        
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-2" layout="grid">
+                            <p:outputLabel for="nombreTecnologo" value="Tecnologo :"/>
+                            <p:inputText id="nombreTecnologo" value="#{consultarStockBean.usuario.persona.apellidop} #{consultarStockBean.usuario.persona.apellidom} #{consultarStockBean.usuario.persona.nombre}" readonly="true" />
+                        </p:panelGrid>
+                        
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
+                            <p:dataTable id="tableConsultarStock" var="Insumo" value="#{consultarStockBean.listInsumo}" widgetVar="insumoTable" emptyMessage="Falta de insumo consultado" filteredValue="#{consultarStockBean.filteredListInsumo}" reflow="true" rows="5" paginator="true" >
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <p:outputLabel value="Buscar : " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('insumoTable').filter()" style="width: 150px" placeholder="Enter keyword" />
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:column filterBy="#{Insumo.codinsumo}" headerText="Código de Insumo :">
+                                    <p:outputLabel value="#{Insumo.codinsumo}" />
+                                </p:column>
+                                <p:column filterBy="#{Insumo.nombre}" headerText="Nombre :">
+                                    <p:outputLabel value="#{Insumo.nombre}" />
+                                </p:column>
+                                <p:column headerText="Cantidad disponible :">
+                                    <p:outputLabel value="#{Insumo.cantidad}" />
+                                </p:column>
+                                
+                                <p:column headerText="Accion" style="width: 100px; text-align: center;" >
+                                    <p:panelGrid columns="2" styleClass="tableNoBorder">
+                                        <p:commandButton update=":form:insumoDetail" oncomplete="PF('insumoDialog').show()" icon="ui-icon-search" title="Ver" >
+                                            <f:setPropertyActionListener value="#{Insumo}" target="#{consultarStockBean.selectedInsumo}" />
+                                        </p:commandButton>
+                                    </p:panelGrid>                                    
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <p:dialog header="Informacion del Insumo" widgetVar="insumoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+                                <p:outputPanel id="insumoDetail" style="text-align: center">
+                                    <p:panelGrid columns="2" rendered="#{not empty consultarStockBean.selectedInsumo}" columnClasses="label,value">
+                                        <f:facet name="header">
+                                            Insumo
+                                        </f:facet>
+                                        <p:outputLabel value="Insumo:" />
+                                        <p:outputLabel value="#{consultarStockBean.selectedInsumo.nombre}" />
+                                        <p:outputLabel value="Cantidad:" />
+                                        <p:outputLabel value="#{consultarStockBean.selectedInsumo.cantidad}">
+                                        </p:outputLabel>
+                                        <p:outputLabel value="Imagen:" />
+                                        <p:outputLabel value="#{consultarStockBean.selectedInsumo.codinsumo}"/>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                            
+                        </p:panelGrid>
+                        
+                    </div>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

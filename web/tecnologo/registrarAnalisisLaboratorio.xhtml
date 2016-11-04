@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template_user.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="growl" life="3000" />
+
+            <h:panelGrid columns="2" columnClasses="label, value">
+                <h:outputText value="Numero Documento: *" />
+                <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.numeroDocumento}" required="true"/>
+            </h:panelGrid>
+            <p:commandButton value="Buscar" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}" update="panel"/>
+
+            <p:separator/>
+            <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel value="Nro. Historial Clinico:"/>
+                    <p:inputText id="nroHistorialClinico" value="#{registrarAnalisisLaboratorioBean.historialClinico.numeroHistorialClinico}" readonly="true" />
+                    <p:outputLabel value="Paciente:"/>
+                    <p:inputText id="nombrePaciente" value="#{registrarAnalisisLaboratorioBean.persona.nombre}" readonly="true" />
+                    <p:outputLabel value="Sexo" />
+                    <p:inputText id="sexo" value="#{registrarAnalisisLaboratorioBean.persona.sexo}"/>
+                    <h:outputText value="Fecha Nacimiento: " />
+                    <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.fechaNacimiento}" readonly="true"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Peso:" />
+                    <h:outputText value="Presion:" />
+                    <p:inputText value="" readonly="true"/>
+                    <p:inputText value="" readonly="true"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:tabView dynamic="true" cache="true" activeIndex="1" >
+                        <p:tab title="Diagnostico">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <h:outputText value="Receta Médica: *" />
+                                <p:inputTextarea value="" placeholder="Receta Médica" rows="10" cols="33" />
+                                <h:outputText value="Medicamento: *" />
+                                <p:inputTextarea value="" placeholder="Medicamento" rows="10" cols="33" />
+                            </h:panelGrid>
+
+                            <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC()}"/>
+                        </p:tab>
+
+                        <p:tab title="Examen de Laboratorio" >
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:outputLabel for="nombreExamenLaboratorio" value="Nombre de Analisis: "/>
+                                <p:inputText id="nombreExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.examenLaboratorio.nombre}" readonly="true"/>
+                                <p:outputLabel value="Indicador: "/>
+
+                                <p:selectOneMenu autoWidth="true" panelStyle="width:75px" effect="fold">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{registrarAnalisisLaboratorioBean.listIndicador}" var="indicador" itemValue="#{indicador.nombre}"  itemLabel="#{indicador.nombre}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="muestraExamenLaboratorio" value="Muestra: "/>
+                                <p:inputText id="muestraExamenLaboratorio" />
+                                <p:commandButton value="Registrar" actionListener="#{registrarAnalisisLaboratorioBean.registrarAnalisis}" update=":form:growl"/>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

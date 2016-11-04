@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <navigation-rule>
+        
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>administrador</from-outcome>
+            <to-view-id>/administrador/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>paciente</from-outcome>
+            <to-view-id>/paciente/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>medico</from-outcome>
+            <to-view-id>/medico/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>tecnologo</from-outcome>
+            <to-view-id>/tecnologo/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>consultarStockInsumos</from-outcome>
+            <to-view-id>/tecnologo/consultarStockInsumos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>recepcionista</from-outcome>
+            <to-view-id>/recepcionista/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>tecnologo</from-outcome>
+            <to-view-id>/tecnologo/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>reservarCita</from-outcome>
+            <to-view-id>/paciente/reservarCita.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+</faces-config>
