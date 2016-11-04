@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Persona" table="PERSONA" schema="DB_SICMECAL" optimistic-lock="version">
+        <id name="numeroDocumento" type="string">
+            <column name="NUMERO_DOCUMENTO" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="tipoDocumento" type="string">
+            <column name="TIPO_DOCUMENTO" length="10" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="45" not-null="true" />
+        </property>
+        <property name="apellidop" type="string">
+            <column name="APELLIDOP" length="45" not-null="true" />
+        </property>
+        <property name="apellidom" type="string">
+            <column name="APELLIDOM" length="45" not-null="true" />
+        </property>
+        <property name="sexo" type="char">
+            <column name="SEXO" length="1" not-null="true" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="FECHA_NACIMIENTO" length="7" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="date" insert="false" update="false">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <set name="usuarios" table="USUARIO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUMERO_DOCUMENTO" length="10" not-null="true" />
+            </key>
+            <one-to-many class="model.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>

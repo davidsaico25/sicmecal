@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Indicador" table="INDICADOR" schema="DB_SICMECAL" optimistic-lock="version">
+        <id name="codIndicador" type="big_decimal">
+            <column name="COD_INDICADOR" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="examenLaboratorio" class="model.ExamenLaboratorio" fetch="select">
+            <column name="COD_EXAMEN_LABORATORIO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="45" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="45" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="muestras" table="MUESTRA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_INDICADOR" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="model.Muestra" />
+        </set>
+    </class>
+</hibernate-mapping>

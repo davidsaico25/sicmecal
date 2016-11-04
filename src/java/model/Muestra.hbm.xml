@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Muestra" table="MUESTRA" schema="DB_SICMECAL" optimistic-lock="version">
+        <composite-id name="id" class="model.MuestraId">
+            <key-property name="codDiagnostico" type="big_decimal">
+                <column name="COD_DIAGNOSTICO" precision="22" scale="0" />
+            </key-property>
+            <key-property name="codIndicador" type="big_decimal">
+                <column name="COD_INDICADOR" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="indicador" class="model.Indicador" update="false" insert="false" fetch="select">
+            <column name="COD_INDICADOR" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ordenMedico" class="model.OrdenMedico" update="false" insert="false" fetch="select">
+            <column name="COD_DIAGNOSTICO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

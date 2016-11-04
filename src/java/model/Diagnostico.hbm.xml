@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Diagnostico" table="DIAGNOSTICO" schema="DB_SICMECAL" optimistic-lock="version">
+        <id name="codDiagnostico" type="big_decimal">
+            <column name="COD_DIAGNOSTICO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="historialClinico" class="model.HistorialClinico" fetch="select">
+            <column name="NUMERO_HISTORIAL_CLINICO" length="45" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="FECHA" length="7" not-null="true" />
+        </property>
+        <one-to-one name="recetaMedica" class="model.RecetaMedica"></one-to-one>
+        <one-to-one name="triaje" class="model.Triaje"></one-to-one>
+        <one-to-one name="ordenMedico" class="model.OrdenMedico"></one-to-one>
+    </class>
+</hibernate-mapping>

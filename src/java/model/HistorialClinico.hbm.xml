@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.HistorialClinico" table="HISTORIAL_CLINICO" schema="DB_SICMECAL" optimistic-lock="version">
+        <id name="numeroHistorialClinico" type="string">
+            <column name="NUMERO_HISTORIAL_CLINICO" length="45" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="paciente" class="model.Paciente" fetch="select">
+            <column name="USERNAME" length="45" not-null="true" />
+        </many-to-one>
+        <set name="diagnosticos" table="DIAGNOSTICO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUMERO_HISTORIAL_CLINICO" length="45" not-null="true" />
+            </key>
+            <one-to-many class="model.Diagnostico" />
+        </set>
+    </class>
+</hibernate-mapping>

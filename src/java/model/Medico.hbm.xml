@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Medico" table="MEDICO" schema="DB_SICMECAL" optimistic-lock="version">
+        <id name="username" type="string">
+            <column name="USERNAME" length="45" />
+            <generator class="foreign">
+                <param name="property">usuario</param>
+            </generator>
+        </id>
+        <one-to-one name="usuario" class="model.Usuario" constrained="true"></one-to-one>
+        <many-to-one name="especialidad" class="model.Especialidad" fetch="select">
+            <column name="COD_ESPECIALIDAD" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <set name="turnos" table="TURNO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MEDICO_USERNAME" length="45" not-null="true" />
+            </key>
+            <one-to-many class="model.Turno" />
+        </set>
+    </class>
+</hibernate-mapping>
