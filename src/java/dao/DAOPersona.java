@@ -16,11 +16,9 @@ public class DAOPersona extends ADAO_crud<Object> implements Serializable {
         Session session = null;
         try{
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from persona p inner join fetch p.paciente p inner join fetch "
-                    + "p.usuario u inner join fetch u.persona per where p.nroDocumento = :nroDocumento");
+            Query query = session.createQuery("from Persona p where p.numeroDocumento = :nroDocumento");
             query.setParameter("nroDocumento", personaAux.getNumeroDocumento());
             persona = (Persona) query.uniqueResult();
-            System.out.println("\\\\\\\\\\\\\\\\\\\\\\");
         }catch(Exception e){
         }finally{
             if(session != null){
@@ -29,5 +27,4 @@ public class DAOPersona extends ADAO_crud<Object> implements Serializable {
         }
         return persona;
     }
-    
 }
