@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1
+// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
 
 
 
@@ -9,24 +9,23 @@ package model;
 public class Recepcionista  implements java.io.Serializable {
 
 
-     private String username;
+     private RecepcionistaId id;
      private Usuario usuario;
-     private char estado;
 
     public Recepcionista() {
     }
 
-    public Recepcionista(Usuario usuario, char estado) {
+    public Recepcionista(RecepcionistaId id, Usuario usuario) {
+       this.id = id;
        this.usuario = usuario;
-       this.estado = estado;
     }
    
-    public String getUsername() {
-        return this.username;
+    public RecepcionistaId getId() {
+        return this.id;
     }
     
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(RecepcionistaId id) {
+        this.id = id;
     }
     public Usuario getUsuario() {
         return this.usuario;
@@ -34,13 +33,6 @@ public class Recepcionista  implements java.io.Serializable {
     
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-    public char getEstado() {
-        return this.estado;
-    }
-    
-    public void setEstado(char estado) {
-        this.estado = estado;
     }
 
 

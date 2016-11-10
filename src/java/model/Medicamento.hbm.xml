@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Medicamento" table="MEDICAMENTO" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="codMedicamento" type="string">
@@ -14,5 +14,14 @@
         <property name="descripcion" type="string">
             <column name="DESCRIPCION" length="45" not-null="true" />
         </property>
+        <property name="stock" type="big_decimal">
+            <column name="STOCK" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="detalleRecetaMedicas" table="DETALLE_RECETA_MEDICA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_MEDICAMENTO" length="45" not-null="true" />
+            </key>
+            <one-to-many class="model.DetalleRecetaMedica" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -9,26 +9,28 @@
     <property name="hibernate.connection.password">123</property>
     <property name="hibernate.show_sql">true</property>
     <mapping resource="model/Medicamento.hbm.xml"/>
-    <mapping resource="model/Modulo.hbm.xml"/>
-    <mapping resource="model/Diagnostico.hbm.xml"/>
-    <mapping resource="model/Indicador.hbm.xml"/>
-    <mapping resource="model/Muestra.hbm.xml"/>
+    <mapping resource="model/DetalleRecetaMedica.hbm.xml"/>
     <mapping resource="model/Triaje.hbm.xml"/>
     <mapping resource="model/Recepcionista.hbm.xml"/>
     <mapping resource="model/CitaMedica.hbm.xml"/>
     <mapping resource="model/Perfil.hbm.xml"/>
-    <mapping resource="model/RecetaMedica.hbm.xml"/>
     <mapping resource="model/OrdenMedico.hbm.xml"/>
     <mapping resource="model/HistorialClinico.hbm.xml"/>
     <mapping resource="model/SubModulo.hbm.xml"/>
-    <mapping resource="model/Tecnologo.hbm.xml"/>
     <mapping resource="model/Paciente.hbm.xml"/>
+    <mapping resource="model/Cajero.hbm.xml"/>
     <mapping resource="model/Turno.hbm.xml"/>
     <mapping resource="model/Persona.hbm.xml"/>
     <mapping resource="model/Usuario.hbm.xml"/>
     <mapping resource="model/Medico.hbm.xml"/>
-    <mapping resource="model/Especialidad.hbm.xml"/>
     <mapping resource="model/ExamenLaboratorio.hbm.xml"/>
     <mapping resource="model/Insumo.hbm.xml"/>
+    <mapping resource="model/Modulo.hbm.xml"/>
+    <mapping resource="model/Diagnostico.hbm.xml"/>
+    <mapping resource="model/Indicador.hbm.xml"/>
+    <mapping resource="model/Muestra.hbm.xml"/>
+    <mapping resource="model/RecetaMedica.hbm.xml"/>
+    <mapping resource="model/Tecnologo.hbm.xml"/>
+    <mapping resource="model/Especialidad.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

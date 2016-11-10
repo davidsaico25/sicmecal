@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.DetalleRecetaMedica" table="DETALLE_RECETA_MEDICA" schema="DB_SICMECAL" optimistic-lock="version">
+        <composite-id name="id" class="model.DetalleRecetaMedicaId">
+            <key-property name="codMedicamento" type="string">
+                <column name="COD_MEDICAMENTO" length="45" />
+            </key-property>
+            <key-property name="codDiagnostico" type="big_decimal">
+                <column name="COD_DIAGNOSTICO" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="medicamento" class="model.Medicamento" update="false" insert="false" fetch="select">
+            <column name="COD_MEDICAMENTO" length="45" not-null="true" />
+        </many-to-one>
+        <many-to-one name="recetaMedica" class="model.RecetaMedica" update="false" insert="false" fetch="select">
+            <column name="COD_DIAGNOSTICO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="big_decimal">
+            <column name="CANTIDAD" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="indicacion" type="string">
+            <column name="INDICACION" length="250" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

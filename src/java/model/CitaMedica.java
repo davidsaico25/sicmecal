@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1
+// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,19 +14,21 @@ public class CitaMedica  implements java.io.Serializable {
      private BigDecimal codCitaMedica;
      private Paciente paciente;
      private Turno turno;
-     private Date fecha;
+     private Date fechaCreacion;
      private Date fechaModificacion;
+     private char estadoPago;
      private char estado;
 
     public CitaMedica() {
     }
 
-    public CitaMedica(BigDecimal codCitaMedica, Paciente paciente, Turno turno, Date fecha, Date fechaModificacion, char estado) {
+    public CitaMedica(BigDecimal codCitaMedica, Paciente paciente, Turno turno, Date fechaCreacion, Date fechaModificacion, char estadoPago, char estado) {
        this.codCitaMedica = codCitaMedica;
        this.paciente = paciente;
        this.turno = turno;
-       this.fecha = fecha;
+       this.fechaCreacion = fechaCreacion;
        this.fechaModificacion = fechaModificacion;
+       this.estadoPago = estadoPago;
        this.estado = estado;
     }
    
@@ -51,12 +53,12 @@ public class CitaMedica  implements java.io.Serializable {
     public void setTurno(Turno turno) {
         this.turno = turno;
     }
-    public Date getFecha() {
-        return this.fecha;
+    public Date getFechaCreacion() {
+        return this.fechaCreacion;
     }
     
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
     public Date getFechaModificacion() {
         return this.fechaModificacion;
@@ -64,6 +66,13 @@ public class CitaMedica  implements java.io.Serializable {
     
     public void setFechaModificacion(Date fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
+    }
+    public char getEstadoPago() {
+        return this.estadoPago;
+    }
+    
+    public void setEstadoPago(char estadoPago) {
+        this.estadoPago = estadoPago;
     }
     public char getEstado() {
         return this.estado;

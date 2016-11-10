@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Usuario" table="USUARIO" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="username" type="string">
@@ -26,7 +26,13 @@
         <property name="fechaCreacion" type="date">
             <column name="FECHA_CREACION" length="7" not-null="true" />
         </property>
-        <one-to-one name="recepcionista" class="model.Recepcionista"></one-to-one>
+        <one-to-one name="cajero" class="model.Cajero"></one-to-one>
+        <set name="recepcionistas" table="RECEPCIONISTA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USERNAME" length="45" not-null="true" />
+            </key>
+            <one-to-many class="model.Recepcionista" />
+        </set>
         <one-to-one name="medico" class="model.Medico"></one-to-one>
         <one-to-one name="paciente" class="model.Paciente"></one-to-one>
         <one-to-one name="tecnologo" class="model.Tecnologo"></one-to-one>

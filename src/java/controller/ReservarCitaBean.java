@@ -71,7 +71,7 @@ public class ReservarCitaBean implements Serializable {
         //turno.setCodTurno(BigDecimal.valueOf(Double.valueOf(codTurno)));
         daoCitaMedica = new DAOCitaMedica();
         citaMedica = new CitaMedica();
-        citaMedica.setFecha(new Date());
+        citaMedica.setFechaCreacion(new Date());
         citaMedica.setPaciente(paciente);
         citaMedica.setTurno(turno);
         citaMedica.setEstado('P');

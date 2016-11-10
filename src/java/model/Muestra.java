@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1
+// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
 
 
 
@@ -12,14 +12,22 @@ public class Muestra  implements java.io.Serializable {
      private MuestraId id;
      private Indicador indicador;
      private OrdenMedico ordenMedico;
+     private String resultadoMuestra;
 
     public Muestra() {
     }
 
+	
     public Muestra(MuestraId id, Indicador indicador, OrdenMedico ordenMedico) {
+        this.id = id;
+        this.indicador = indicador;
+        this.ordenMedico = ordenMedico;
+    }
+    public Muestra(MuestraId id, Indicador indicador, OrdenMedico ordenMedico, String resultadoMuestra) {
        this.id = id;
        this.indicador = indicador;
        this.ordenMedico = ordenMedico;
+       this.resultadoMuestra = resultadoMuestra;
     }
    
     public MuestraId getId() {
@@ -42,6 +50,13 @@ public class Muestra  implements java.io.Serializable {
     
     public void setOrdenMedico(OrdenMedico ordenMedico) {
         this.ordenMedico = ordenMedico;
+    }
+    public String getResultadoMuestra() {
+        return this.resultadoMuestra;
+    }
+    
+    public void setResultadoMuestra(String resultadoMuestra) {
+        this.resultadoMuestra = resultadoMuestra;
     }
 
 

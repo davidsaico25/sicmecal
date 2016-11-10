@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1
+// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,6 +19,7 @@ public class Persona  implements java.io.Serializable {
      private String apellidom;
      private char sexo;
      private Date fechaNacimiento;
+     private String correo;
      private Date fechaModificacion;
      private Set usuarios = new HashSet(0);
 
@@ -26,7 +27,7 @@ public class Persona  implements java.io.Serializable {
     }
 
 	
-    public Persona(String numeroDocumento, String tipoDocumento, String nombre, String apellidop, String apellidom, char sexo, Date fechaNacimiento, Date fechaModificacion) {
+    public Persona(String numeroDocumento, String tipoDocumento, String nombre, String apellidop, String apellidom, char sexo, Date fechaNacimiento, String correo, Date fechaModificacion) {
         this.numeroDocumento = numeroDocumento;
         this.tipoDocumento = tipoDocumento;
         this.nombre = nombre;
@@ -34,9 +35,10 @@ public class Persona  implements java.io.Serializable {
         this.apellidom = apellidom;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
+        this.correo = correo;
         this.fechaModificacion = fechaModificacion;
     }
-    public Persona(String numeroDocumento, String tipoDocumento, String nombre, String apellidop, String apellidom, char sexo, Date fechaNacimiento, Date fechaModificacion, Set usuarios) {
+    public Persona(String numeroDocumento, String tipoDocumento, String nombre, String apellidop, String apellidom, char sexo, Date fechaNacimiento, String correo, Date fechaModificacion, Set usuarios) {
        this.numeroDocumento = numeroDocumento;
        this.tipoDocumento = tipoDocumento;
        this.nombre = nombre;
@@ -44,6 +46,7 @@ public class Persona  implements java.io.Serializable {
        this.apellidom = apellidom;
        this.sexo = sexo;
        this.fechaNacimiento = fechaNacimiento;
+       this.correo = correo;
        this.fechaModificacion = fechaModificacion;
        this.usuarios = usuarios;
     }
@@ -96,6 +99,13 @@ public class Persona  implements java.io.Serializable {
     
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+    public String getCorreo() {
+        return this.correo;
+    }
+    
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     public Date getFechaModificacion() {
         return this.fechaModificacion;

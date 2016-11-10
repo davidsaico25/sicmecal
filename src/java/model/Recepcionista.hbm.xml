@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 30, 2016 1:24:18 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Recepcionista" table="RECEPCIONISTA" schema="DB_SICMECAL" optimistic-lock="version">
-        <id name="username" type="string">
-            <column name="USERNAME" length="45" />
-            <generator class="foreign">
-                <param name="property">usuario</param>
-            </generator>
-        </id>
-        <one-to-one name="usuario" class="model.Usuario" constrained="true"></one-to-one>
-        <property name="estado" type="char">
-            <column name="ESTADO" length="1" not-null="true" />
-        </property>
+        <composite-id name="id" class="model.RecepcionistaId">
+            <key-property name="username" type="string">
+                <column name="USERNAME" length="45" />
+            </key-property>
+            <key-property name="estado" type="char">
+                <column name="ESTADO" length="1" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="usuario" class="model.Usuario" update="false" insert="false" fetch="select">
+            <column name="USERNAME" length="45" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>
