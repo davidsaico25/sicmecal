@@ -49,14 +49,20 @@
         </navigation-case>
         
         <navigation-case>
-            <from-outcome>tecnologo</from-outcome>
-            <to-view-id>/tecnologo/index.xhtml</to-view-id>
+            <from-outcome>reservarCita</from-outcome>
+            <to-view-id>/paciente/reservarCita.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         
         <navigation-case>
-            <from-outcome>reservarCita</from-outcome>
-            <to-view-id>/paciente/reservarCita.xhtml</to-view-id>
+            <from-outcome>cajero</from-outcome>
+            <to-view-id>/cajero/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>pagoCitaMedica</from-outcome>
+            <to-view-id>/cajero/pagoCitaMedica.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         

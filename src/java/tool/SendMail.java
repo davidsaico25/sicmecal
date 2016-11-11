@@ -26,39 +26,23 @@ public class SendMail {
     String[] destinatarios;
     String asunto = null;
     String cuerpo = null;
-    int servidor;
 
-    public SendMail(String[] mailReceptor, String asunto, String cuerpo, int servidor) {
+    public SendMail(String[] mailReceptor, String asunto, String cuerpo) {
         this.destinatarios = mailReceptor;
         this.asunto = asunto;
         this.cuerpo = cuerpo;
-        this.servidor = servidor;
-        configurarServidor();
     }
 
-    public SendMail(String user, String pass, String[] mailReceptor, String asunto, String cuerpo, int servidor) {
-        this(mailReceptor, asunto, cuerpo, servidor);
+    public SendMail(String user, String pass, String[] mailReceptor, String asunto, String cuerpo) {
+        this(mailReceptor, asunto, cuerpo);
         this.miCorreo = user;
         this.miPassword = pass;
     }
 
-    public final void configurarServidor() {
-        if (this.servidor == 0) {//gmail
-            this.servidorSMTP = "smtp.gmail.com";
-            this.puertoEnvio = "587";
-        }
-        if (this.servidor == 1) {//outlook
-            this.servidorSMTP = "smtp.live.com";
-            this.puertoEnvio = "587";
-        }
-        if (this.servidor == 2) {//yahoo
-            this.servidorSMTP = "smtp.mail.yahoo.com";
-            this.puertoEnvio = "587";
-        }
-    }
-
     public void send()
             throws MessagingException {
+        this.servidorSMTP = "smtp.live.com";
+        this.puertoEnvio = "587";
         Properties props = new Properties();
         props.put("mail.smtp.user", this.miCorreo);
         props.put("mail.smtp.host", this.servidorSMTP);
