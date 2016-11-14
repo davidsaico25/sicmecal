@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template_user.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        
+        <div class="ui-fluid">
+            
+            <h:form id="form">
+                <p:growl id="growl" showDetail="true" />
+
+                <p:panelGrid columns="3" class="tableNoBorder">
+
+                    <p:outputLabel value="Numero Documento: "/>
+                    <p:inputText value="#{reprogramarCitaMedicaBean.persona.numeroDocumento}" />
+
+                    <p:commandButton value="Consultar" actionListener="#{reprogramarCitaMedicaBean.buscarListCitaMedica}" update=":form:tableCitasMedicas,:form:tableCitasMedicasReprogramar"/>
+
+                </p:panelGrid>
+                
+                <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
+                    <p:dataTable id="tableCitasMedicas" var="citaMedica" value="#{reprogramarCitaMedicaBean.listCitaMedica}"
+                                selectionMode="single" selection="#{reprogramarCitaMedicaBean.selectedCitaMedica}" rowKey="#{citaMedica.codCitaMedica}" >
+                        
+                        <f:facet name="header">
+                           Citas Medicas Reservadas
+                        </f:facet>
+
+                        <p:column headerText="Numero Serie">
+                           <h:outputText value="#{citaMedica.codCitaMedica}" />
+                        </p:column>
+
+                        <p:column headerText="Marca">
+                           <h:outputText value="#{citaMedica.fechaCreacion}" />
+                        </p:column>
+
+                        <p:column headerText="Marca">
+                           <h:outputText value="#{citaMedica.turno.codTurno}" />
+                        </p:column>
+
+                        <f:facet name="footer">
+                           <p:commandButton value="Mostrar" actionListener="#{reprogramarCitaMedicaBean.buscarListTurnoDisponible}" update=":form:tableCitasMedicasReprogramar" />
+                        </f:facet>
+
+                        </p:dataTable>
+                </p:panelGrid>
+                
+                <p:separator/>
+
+                <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
+                    <p:dataTable id="tableCitasMedicasReprogramar" var="turno" value="#{reprogramarCitaMedicaBean.listTurno}"
+                                widgetVar="turnosTable" emptyMessage="No hay horarios para este criterio"
+                                filteredValue="#{reprogramarCitaMedicaBean.filteredListTurno}" reflow="true" rows="5" paginator="true" >
+
+                        <f:facet name="header">
+                           <p:outputPanel>
+                               <p:outputLabel value="Buscar: " />
+                               <p:inputText id="globalFilter" onkeyup="PF('turnosTable').filter()" style="width: 150px" placeholder="Enter keyword" />
+                           </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Apellido Paterno">
+                           <p:outputLabel value="#{turno.codTurno}" />
+                        </p:column>
+
+                        <p:column headerText="Apellido Paterno">
+                           <p:outputLabel value="#{turno.medico.usuario.persona.apellidop}" />
+                        </p:column>
+                        <p:column headerText="Apellido Materno">
+                           <p:outputLabel value="#{turno.medico.usuario.persona.apellidom}" />
+                        </p:column>
+                        <p:column headerText="Nombre">
+                           <p:outputLabel value="#{turno.medico.usuario.persona.nombre}" />
+                        </p:column>
+                        <p:column headerText="Fecha">
+                           <p:outputLabel value="#{turno.horaInicio}">
+                               <f:convertDateTime pattern="dd-MM-yyyy" timeZone="GMT-5" />
+                           </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Horario">
+                           <p:outputLabel value="#{turno.horaInicio}">
+                               <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                           </p:outputLabel>
+                           <p:outputLabel value=" - " />
+                           <p:outputLabel value="#{turno.horaFin}">
+                               <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                           </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Accion" style="width: 100px; text-align: center;" >
+                           <p:panelGrid columns="2" styleClass="tableNoBorder">
+                               <p:commandButton update=":form:turnoDetail" oncomplete="PF('turnoDialog').show()" icon="ui-icon-search" title="Ver" >
+                                   <f:setPropertyActionListener value="#{turno}" target="#{reprogramarCitaMedicaBean.selectedTurno}" />
+                               </p:commandButton>
+                               <p:commandButton id="btnReservar" actionListener="#{reprogramarCitaMedicaBean.reprogramarCitaMedica}" update=":form:growl" icon="fa fa-book" title="Reservar" >
+                                   <f:attribute name="codTurno" value="#{turno.codTurno}" />
+                                   <p:confirm header="Confirmacion" message="¿Reservar cita en este turno?" icon="ui-icon-alert" />
+                               </p:commandButton>
+                           </p:panelGrid>
+                        </p:column>
+
+                        <f:facet name="footer">
+                           <p:commandButton value="Reprogramar" actionListener="#{reprogramarCitaMedicaBean.reprogramarCitaMedica}" />
+                        </f:facet>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                        </p:confirmDialog>
+
+                        <p:dialog header="Informacion turno" widgetVar="turnoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+                        <p:outputPanel id="turnoDetail" style="text-align: center">
+                           <p:panelGrid columns="2" rendered="#{not empty reprogramarCitaMedicaBean.selectedTurno}" columnClasses="label,value">
+                               <f:facet name="header">
+                                   Turno
+                               </f:facet>
+                               <p:outputLabel value="Medico:" />
+                               <p:outputLabel value="#{reprogramarCitaMedicaBean.selectedTurno.medico.usuario.persona.nombre} #{reprogramarCitaMedicaBean.selectedTurno.medico.usuario.persona.apellidop} #{reprogramarCitaMedicaBean.selectedTurno.medico.usuario.persona.apellidom}" />
+                               <p:outputLabel value="Hora Incio:" />
+                               <p:outputLabel value="#{reprogramarCitaMedicaBean.selectedTurno.horaInicio}">
+                                   <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                               </p:outputLabel>
+                               <p:outputLabel value="Hora Fin:" />
+                               <p:outputLabel value="#{reprogramarCitaMedicaBean.selectedTurno.horaFin}">
+                                   <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                               </p:outputLabel>
+                           </p:panelGrid>
+                        </p:outputPanel>
+                        </p:dialog>
+                </p:panelGrid>
+                
+            </h:form>
+            
+        </div>
+        
+    </ui:define>
+
+</ui:composition>

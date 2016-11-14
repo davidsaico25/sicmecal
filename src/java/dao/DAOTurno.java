@@ -1,12 +1,10 @@
 package dao;
 
 import java.io.Serializable;
-import java.lang.Integer;
 import java.util.List;
 import model.Turno;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.type.IntegerType;
 
 /**
  *

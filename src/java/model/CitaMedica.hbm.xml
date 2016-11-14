@@ -6,7 +6,7 @@
     <class name="model.CitaMedica" table="CITA_MEDICA" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="codCitaMedica" type="big_decimal">
             <column name="COD_CITA_MEDICA" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="paciente" class="model.Paciente" fetch="select">
             <column name="PACIENTE_USERNAME" length="45" not-null="true" />
