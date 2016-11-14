@@ -31,16 +31,16 @@
                            Citas Medicas Reservadas
                         </f:facet>
 
-                        <p:column headerText="Numero Serie">
-                           <h:outputText value="#{citaMedica.codCitaMedica}" />
+                        <p:column headerText="Especialidad">
+                            <h:outputText value="#{citaMedica.turno.medico.especialidad.nombre}" />
                         </p:column>
-
-                        <p:column headerText="Marca">
-                           <h:outputText value="#{citaMedica.fechaCreacion}" />
+                        
+                        <p:column headerText="Medico">
+                            <h:outputText value="#{citaMedica.turno.medico.usuario.persona.apellidop} #{citaMedica.turno.medico.usuario.persona.apellidom} #{citaMedica.turno.medico.usuario.persona.nombre}" />
                         </p:column>
-
-                        <p:column headerText="Marca">
-                           <h:outputText value="#{citaMedica.turno.codTurno}" />
+                        
+                        <p:column headerText="Fecha">
+                            <h:outputText value="#{citaMedica.fechaCreacion}" />
                         </p:column>
 
                         <f:facet name="footer">
