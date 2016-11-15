@@ -36,10 +36,6 @@ public class IndexPacienteBean implements Serializable {
         daoCitaMedica = new DAOCitaMedica();
         listCitaMedica = daoCitaMedica.getListCitaMedicaByPersona(persona);
         
-        for (CitaMedica citaMedica : listCitaMedica) {
-            System.out.println(citaMedica.getTurno().getConsultorio());
-        }
-        
         lazyEventModel = new LazyScheduleModel() {
             @Override
             public void loadEvents(Date start, Date end) {

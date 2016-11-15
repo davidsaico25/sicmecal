@@ -23,8 +23,8 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendMailAttachFile {
 
-    public static String miCorreo;
-    public static String miPassword;
+    final String CORREO_SICMECAL = "sicmecal@outlook.com";
+    final String PASSWORD_SICMECAL = "tp2016ii";
     String servidorSMTP;
     String puertoEnvio;
     String[] destinatarios;
@@ -40,12 +40,6 @@ public class SendMailAttachFile {
         this.archivoAdjunto = archivo;
         this.servidor = server;
         setupServer();
-    }
-
-    public SendMailAttachFile(String usuario, String pass, String[] dest, String asun, String mens, String[] archivo, int server) {
-        this(dest, asun, mens, archivo, server);
-        this.miCorreo = usuario;
-        this.miPassword = pass;
     }
 
     public final void setupServer() {
@@ -69,13 +63,13 @@ public class SendMailAttachFile {
         props.setProperty("mail.smtp.starttls.enable", "true");
         //}
         props.setProperty("mail.smtp.port", "587");
-        props.setProperty("mail.smtp.user", miCorreo);
+        props.setProperty("mail.smtp.user", CORREO_SICMECAL);
         props.setProperty("mail.smtp.auth", "true");
 
         SecurityManager security = System.getSecurityManager();
 
         //Authenticator auth = new autentificadorSMTP();
-        Session session = Session.getInstance(props, new GMailAuthenticator(miCorreo, miPassword));
+        Session session = Session.getInstance(props, new GMailAuthenticator(CORREO_SICMECAL, PASSWORD_SICMECAL));
 
         BodyPart texto = new MimeBodyPart();
         texto.setText(this.cuerpo);
@@ -96,7 +90,7 @@ public class SendMailAttachFile {
             multiParte.addBodyPart(aux);
         }
         MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(this.miCorreo));
+        message.setFrom(new InternetAddress(this.CORREO_SICMECAL));
         Address[] destinos = new Address[this.destinatarios.length];
         for (int i = 0; i < destinos.length; i++) {
             destinos[i] = new InternetAddress(this.destinatarios[i]);
@@ -106,7 +100,7 @@ public class SendMailAttachFile {
         message.setContent(multiParte);
 
         Transport t = session.getTransport("smtp");
-        t.connect(miCorreo, miPassword);
+        t.connect(CORREO_SICMECAL, PASSWORD_SICMECAL);
         t.sendMessage(message, message.getAllRecipients());
 
         t.close();

@@ -19,8 +19,11 @@ import model.CitaMedica;
 import model.Especialidad;
 import model.HistorialClinico;
 import model.Paciente;
+import model.Persona;
 import model.Turno;
 import model.Usuario;
+import tool.FileManager;
+import tool.SendMailAttachFile;
 
 /**
  *
@@ -68,17 +71,29 @@ public class ReservarCitaBean implements Serializable {
     public void reservarCita(ActionEvent actionEvent) {
         String codTurno = String.valueOf(actionEvent.getComponent().getAttributes().get("codTurno"));
         Turno turno = daoTurno.getTurno(codTurno);
-        //turno.setCodTurno(BigDecimal.valueOf(Double.valueOf(codTurno)));
         daoCitaMedica = new DAOCitaMedica();
         citaMedica = new CitaMedica();
         citaMedica.setFechaCreacion(new Date());
         citaMedica.setPaciente(paciente);
         citaMedica.setTurno(turno);
         citaMedica.setEstado('P');
+        citaMedica.setEstadoPago('P');
         daoCitaMedica.crear(citaMedica);
         double numCitas = turno.getNumCitasMax().doubleValue() - 1;
         turno.setNumCitasMax(BigDecimal.valueOf(numCitas));
         daoTurno.actualizar(turno);
+        try {
+            FileManager.crearTicketCitaMedica(citaMedica);
+        } catch (Exception ex) {}
+        String[] dest = new String[1];
+        Persona persona = paciente.getUsuario().getPersona();
+        dest[0] = persona.getCorreo();
+        String[] archivo = new String[1];
+        archivo[0] = "C:\\Users\\davisonsp\\Documents\\NetBeansProjects\\sicmecal\\docs\\citas medicas\\" + persona.getNumeroDocumento() + "_" + citaMedica.getCodCitaMedica() + ".pdf";
+        SendMailAttachFile sendMailAttachFile = new SendMailAttachFile(dest, "citaMedica", "Su cita Medica fue registrado con exito. Adjunto documento.", archivo, 1);
+        try {
+            sendMailAttachFile.send();
+        } catch (Exception ex) {}
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cita Reservada", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/paciente/index.xhtml");

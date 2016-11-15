@@ -19,8 +19,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendMail {
 
-    String miCorreo;
-    String miPassword;
+    final String CORREO_SICMECAL = "sicmecal@outlook.com";
+    final String PASSWORD_SICMECAL = "tp2016ii";
     String servidorSMTP;
     String puertoEnvio;
     String[] destinatarios;
@@ -33,18 +33,12 @@ public class SendMail {
         this.cuerpo = cuerpo;
     }
 
-    public SendMail(String user, String pass, String[] mailReceptor, String asunto, String cuerpo) {
-        this(mailReceptor, asunto, cuerpo);
-        this.miCorreo = user;
-        this.miPassword = pass;
-    }
-
     public void send()
             throws MessagingException {
         this.servidorSMTP = "smtp.live.com";
         this.puertoEnvio = "587";
         Properties props = new Properties();
-        props.put("mail.smtp.user", this.miCorreo);
+        props.put("mail.smtp.user", this.CORREO_SICMECAL);
         props.put("mail.smtp.host", this.servidorSMTP);
         props.put("mail.smtp.port", this.puertoEnvio);
         //if (this.servidor != 2) {
@@ -67,7 +61,7 @@ public class SendMail {
         MimeMessage msg = new MimeMessage(session);
         msg.setText(this.cuerpo);
         msg.setSubject(this.asunto);
-        msg.setFrom(new InternetAddress(this.miCorreo));
+        msg.setFrom(new InternetAddress(this.CORREO_SICMECAL));
         Address[] destinos = new Address[this.destinatarios.length];
         for (int i = 0; i < destinos.length; i++) {
             destinos[i] = new InternetAddress(this.destinatarios[i]);
@@ -75,7 +69,7 @@ public class SendMail {
         msg.addRecipients(Message.RecipientType.TO, destinos);
         try {
             Transport t = session.getTransport("smtp");
-            t.connect(this.miCorreo, this.miPassword);
+            t.connect(this.CORREO_SICMECAL, this.PASSWORD_SICMECAL);
             t.sendMessage(msg, msg.getAllRecipients());
             System.out.println("Correo Enviado exitosamente!");
             t.close();
@@ -92,7 +86,7 @@ public class SendMail {
 
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(SendMail.this.miCorreo, SendMail.this.miPassword);
+            return new PasswordAuthentication(SendMail.this.CORREO_SICMECAL, SendMail.this.PASSWORD_SICMECAL);
         }
     }
 }

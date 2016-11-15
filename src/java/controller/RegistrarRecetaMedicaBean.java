@@ -30,7 +30,6 @@ public class RegistrarRecetaMedicaBean implements Serializable {
     public void muestraHC(ActionEvent ae){
         daoHistorialClinico = new DAOHistorialClinico();
         historialClinico = daoHistorialClinico.getHistorialClinicoByPersona(persona);
-        System.out.println(persona.getNumeroDocumento());
     }
 
     public Persona getPersona() {

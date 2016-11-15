@@ -64,7 +64,6 @@ public class LoginBean implements Serializable {
             logged = false;
             perfil = "";
             usuario = new Usuario();
-            System.out.println(usuario.getUsername());
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Credenciales invalidas");
         }
         FacesContext.getCurrentInstance().addMessage(null, message);

@@ -33,7 +33,7 @@ public class DAOTurno extends ADAO_crud<Object> implements Serializable {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from Turno t where t.codTurno = " + codTurno);
+            Query query = session.createQuery("from Turno t inner join fetch t.medico m inner join fetch m.usuario u inner join fetch u.persona p inner join fetch m.especialidad e where t.codTurno = " + codTurno);
             turno = (Turno) query.uniqueResult();
             return turno;
         } catch (Exception e) {
