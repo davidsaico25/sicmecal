@@ -26,35 +26,35 @@
                     <p:outputLabel value="Nro. Historial Clinico:"/>
                     <p:inputText id="nroHistorialClinico" value="#{registrarRecetaMedicaBean.historialClinico.numeroHistorialClinico}" readonly="true" />
                     <p:outputLabel value="Paciente:"/>
-                    <p:inputText id="nombrePaciente" value="rsfd" readonly="true" />
+                    <p:inputText id="nombrePaciente" value="#{registrarRecetaMedicaBean.persona.nombre} #{registrarRecetaMedicaBean.persona.apellidop} #{registrarRecetaMedicaBean.persona.apellidom}" readonly="true" />
                     <p:outputLabel value="Sexo" />
-                    <p:inputText id="sexo" value="erfd"/>
+                    <p:selectOneMenu id="sexo" value="#{registrarRecetaMedicaBean.persona.sexo}" disabled="true" style="width:125px">
+                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem itemLabel="Femenino" itemValue="F" />
+                    </p:selectOneMenu>
                     <h:outputText value="Fecha Nacimiento: " />
-                    <p:inputText id="fechaNacimiento" value="ergsdf" readonly="true"/>
+                    <p:inputText id="fechaNacimiento" value="#{registrarRecetaMedicaBean.persona.fechaNacimiento}" readonly="true"/>
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:outputText value="Peso:" />
                     <h:outputText value="Presion:" />
-                    <p:inputText value="rdgf" readonly="true"/>
-                    <p:inputText value="ergsd" readonly="true"/>
+                    <p:inputText value="" readonly="true"/>
+                    <p:inputText value="" readonly="true"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:tabView dynamic="true" cache="true" activeIndex="1" >
-                        <p:tab title="Diagnostico">
+                    <p:tabView dynamic="true" cache="true" activeIndex="2" >
+                        <p:tab title="Diagnostico" disabled="true">
                             <h:panelGrid columns="2" cellpadding="10">
-                                <h:outputText value="Receta Médica: *" />
-                                <p:inputTextarea value="" placeholder="Receta Médica" rows="10" cols="33" />
-                                <h:outputText value="Medicamento: *" />
-                                <p:inputTextarea value="" placeholder="Medicamento" rows="10" cols="33" />
                             </h:panelGrid>
 
                             <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarRecetaMedicaBean.muestraHC}"/>
                         </p:tab>
 
-                        <p:tab title="Examen de Laboratorio" >
+                        <p:tab title="Examen de Laboratorio" disabled="true">
                             <h:panelGrid columns="2" cellpadding="10">
                                 <p:outputLabel value="Nombre de Analisis: "/>
                                 <p:inputText id="nombreExamenLaboratorio" value="tgresdf" readonly="true"/>
@@ -63,33 +63,26 @@
 
 
                                 <p:outputLabel value="Muestra: "/>
-                                <p:inputText id="muestraExamenLaboratorio" value="rgsfdfsd"/>
+                                <p:inputText id="muestraExamenLaboratorio" value=""/>
                                 <p:commandButton value="Registrar" actionListener="#{registrarRecetaMedicaBean.muestraHC}"/>
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Receta Medica" >
                             <h:panelGrid columns="2" cellpadding="10">
-                                <p:outputLabel value="Fecha de Prescripción:"/>
-                                <p:inputText id="fechaPrescripcion" value="" readonly="true"/>
 
                                 <p:outputLabel value="Nombre Medicamento:"/>
-                                <p:inputText id="nombreMedicamento" value="" readonly="true"/>
+                                <p:selectOneMenu id="medicamento" value="#{registrarRecetaMedicaBean.medicamento.codMedicamento}" autoWidth="true" panelStyle="width:75px" effect="fold">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems  value="#{registrarRecetaMedicaBean.listMedicamento}" var="medicamento" itemValue="#{medicamento.codMedicamento}" itemLabel="#{medicamento.nombre}" />
+                                </p:selectOneMenu>
 
                                 <p:outputLabel value="Cantidad:"/>
-                                <p:inputText id="cantidad" value= "rdgf" readonly="true"/>
+                                <p:inputText id="cantidad" value= "#{registrarRecetaMedicaBean.detalleRecetaMedica.cantidad}"/>
 
                                 <p:outputLabel value="Indicaciones"/>
-                                <p:inputTextarea id="indicacionesMedicamento" value= "dfhfd" readonly="true"/>
+                                <p:inputTextarea value="#{registrarRecetaMedicaBean.detalleRecetaMedica.indicacion}" rows="6" cols="33" />
 
-                                <p:outputLabel  value="Medico Prescriptor:"/>
-                                <p:inputText id="medicoPrescriptor" readonly="true"/>
-
-                                <p:outputLabel  value="Duracion Tratamiento:"/>
-                                <p:inputTextarea id="duracionTratamiento" readonly="true"/>
-
-                                <p:commandButton value="Registrar" actionListener="#{registrarRecetaMedicaBean.muestraHC}"/>
-                                <p:commandButton value="Modificar" actionListener="#{registrarRecetaMedicaBean.muestraHC}"/>
-                                <p:commandButton value="Cancelar" actionListener="#{registrarRecetaMedicaBean.muestraHC}"/>
+                                <p:commandButton value="Registrar" actionListener="#{registrarRecetaMedicaBean.registrarRecetaMedica}" update=":form:growl"/>
                             </h:panelGrid>
                         </p:tab>
 

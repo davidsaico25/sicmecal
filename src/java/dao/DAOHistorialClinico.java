@@ -48,4 +48,22 @@ public class DAOHistorialClinico extends ADAO_crud<Object> implements Serializab
         }
         return null;
     }
+    
+    public HistorialClinico getHistorialClinicoByDNI(String nroDocumento) {
+        HistorialClinico historialClinico = null;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from HistorialClinico hc inner join fetch hc.paciente pa inner join fetch pa.usuario u inner join fetch u.persona p where p.numeroDocumento = :nroDocumento");
+            query.setParameter("nroDocumento", nroDocumento);
+            historialClinico = (HistorialClinico) query.uniqueResult();
+            return historialClinico;
+        } catch (Exception e) {
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
+    }
 }

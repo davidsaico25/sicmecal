@@ -6,9 +6,8 @@ import dao.DAOHistorialClinico;
 import dao.DAOIndicador;
 import dao.DAOMuestra;
 import dao.DAOOrdenMedico;
-import dao.DAOPaciente;
-import dao.DAOPersona;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -39,12 +38,14 @@ public class RegistrarAnalisisLaboratorioBean implements Serializable{
     private ExamenLaboratorio examenLaboratorio;
     private Indicador indicador;
     private List<Indicador> listIndicador;
+    private List<ExamenLaboratorio> listExamenLaboratorio;
     private Muestra muestra;
     private OrdenMedico ordenMedico;
     
+    private String muestraExamen;
+    private List<String> listaMuestraExamen;
+    
     private DAOHistorialClinico daoHistorialClinico;
-    private DAOPaciente daoPaciente;
-    private DAOPersona daoPersona;
     private DAODiagnostico daoDiagnostico;
     private DAOExamenLaboratorio daoExamenLaboratorio;
     private DAOIndicador daoIndicador;
@@ -54,6 +55,8 @@ public class RegistrarAnalisisLaboratorioBean implements Serializable{
     public RegistrarAnalisisLaboratorioBean(){
         persona = new Persona();
         usuario = new Usuario();
+        listaMuestraExamen = new ArrayList<>();
+        indicador = new Indicador();
     }
     
     public void mostrarHC(ActionEvent actionEvent){
@@ -65,19 +68,31 @@ public class RegistrarAnalisisLaboratorioBean implements Serializable{
         daoExamenLaboratorio = new DAOExamenLaboratorio();
         examenLaboratorio = daoExamenLaboratorio.getExamenLaboratorioByDiagnostico(diagnostico);
         daoIndicador = new DAOIndicador();
-        listIndicador = daoIndicador.getListIndicador();
+        indicador = daoIndicador.getIndicadorByDiagnostico(diagnostico);
     }
     
-    public void registrarAnalisis(ActionEvent actionEvent) {
+    public void agregarListaMuestra(ActionEvent ae){
+        listaMuestraExamen.add(muestraExamen);
+        muestraExamen = "";
+    }
+    
+    public void registrarAnalisis(ActionEvent actEvent) {
+        String resultadoMuestra = "";
+        for(int i = 0; i < listaMuestraExamen.size(); i++){
+            resultadoMuestra += listaMuestraExamen.get(i) + "\n";
+        }
         daoOrdenMedico = new DAOOrdenMedico();
-        ordenMedico = daoOrdenMedico.getOrdenMedicobyDiagnostico(diagnostico);
+        setOrdenMedico(daoOrdenMedico.getOrdenMedicobyDiagnostico(diagnostico));
+        
+        getOrdenMedico().setEstado('R');
+        daoOrdenMedico.actualizar(getOrdenMedico());
+        
         daoMuestra = new DAOMuestra();
-        muestra = new Muestra();
-        muestra.setIndicador(indicador);
-        muestra.setOrdenMedico(ordenMedico);
-        daoMuestra.crear(muestra);
-        ordenMedico.setEstado('R');
-        daoOrdenMedico.actualizar(ordenMedico);
+        setMuestra(daoMuestra.getMuestrabyOrdenMedico(ordenMedico));
+        
+        getMuestra().setResultadoMuestra(resultadoMuestra);
+        daoMuestra.actualizar(getMuestra());
+        
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado de Examen de Laboratorio Realizado", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -153,19 +168,51 @@ public class RegistrarAnalisisLaboratorioBean implements Serializable{
     public void setMuestra(Muestra muestra) {
         this.muestra = muestra;
     }
-
-    /**
-     * @return the listIndicador
-     */
+    
     public List<Indicador> getListIndicador() {
         return listIndicador;
     }
 
-    /**
-     * @param listIndicador the listIndicador to set
-     */
     public void setListIndicador(List<Indicador> listIndicador) {
         this.listIndicador = listIndicador;
+    }
+
+    public OrdenMedico getOrdenMedico() {
+        return ordenMedico;
+    }
+
+    public void setOrdenMedico(OrdenMedico ordenMedico) {
+        this.ordenMedico = ordenMedico;
+    }
+
+    public String getMuestraExamen() {
+        return muestraExamen;
+    }
+
+    public void setMuestraExamen(String muestraExamen) {
+        this.muestraExamen = muestraExamen;
+    }
+
+    public List<String> getListaMuestraExamen() {
+        return listaMuestraExamen;
+    }
+
+    public void setListaMuestraExamen(List<String> listaMuestraExamen) {
+        this.listaMuestraExamen = listaMuestraExamen;
+    }
+
+    /**
+     * @return the listExamenLaboratorio
+     */
+    public List<ExamenLaboratorio> getListExamenLaboratorio() {
+        return listExamenLaboratorio;
+    }
+
+    /**
+     * @param listExamenLaboratorio the listExamenLaboratorio to set
+     */
+    public void setListExamenLaboratorio(List<ExamenLaboratorio> listExamenLaboratorio) {
+        this.listExamenLaboratorio = listExamenLaboratorio;
     }
 
 }

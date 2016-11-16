@@ -29,9 +29,13 @@ and open the template in the editor.
                     <p:outputLabel value="Nro. Historial Clinico:"/>
                     <p:inputText id="nroHistorialClinico" value="#{registrarAnalisisLaboratorioBean.historialClinico.numeroHistorialClinico}" readonly="true" />
                     <p:outputLabel value="Paciente:"/>
-                    <p:inputText id="nombrePaciente" value="#{registrarAnalisisLaboratorioBean.persona.nombre}" readonly="true" />
+                    <p:inputText id="nombrePaciente" value="#{registrarAnalisisLaboratorioBean.persona.nombre} #{registrarAnalisisLaboratorioBean.persona.apellidop} #{registrarAnalisisLaboratorioBean.persona.apellidom}" readonly="true" />
                     <p:outputLabel value="Sexo" />
-                    <p:inputText id="sexo" value="#{registrarAnalisisLaboratorioBean.persona.sexo}"/>
+                    <p:selectOneMenu id="sexo" value="#{registrarAnalisisLaboratorioBean.persona.sexo}" disabled="true" style="width:125px">
+                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem itemLabel="Femenino" itemValue="F" />
+                    </p:selectOneMenu>
                     <h:outputText value="Fecha Nacimiento: " />
                     <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.fechaNacimiento}" readonly="true"/>
 
@@ -46,7 +50,7 @@ and open the template in the editor.
 
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:tabView dynamic="true" cache="true" activeIndex="1" >
-                        <p:tab title="Diagnostico">
+                        <p:tab title="Diagnostico" disabled="true">
                             <h:panelGrid columns="2" cellpadding="10">
                                 <h:outputText value="Receta Médica: *" />
                                 <p:inputTextarea value="" placeholder="Receta Médica" rows="10" cols="33" />
@@ -54,22 +58,20 @@ and open the template in the editor.
                                 <p:inputTextarea value="" placeholder="Medicamento" rows="10" cols="33" />
                             </h:panelGrid>
 
-                            <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC()}"/>
+                            <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}"/>
                         </p:tab>
 
-                        <p:tab title="Examen de Laboratorio" >
-                            <h:panelGrid columns="2" cellpadding="10">
+                        <p:tab title="Examen de Laboratorio">
+                            <h:panelGrid id="exam" columns="2" cellpadding="10">
                                 <p:outputLabel for="nombreExamenLaboratorio" value="Nombre de Analisis: "/>
                                 <p:inputText id="nombreExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.examenLaboratorio.nombre}" readonly="true"/>
                                 <p:outputLabel value="Indicador: "/>
+                                <p:inputText id="nombreIndicador" value="#{registrarAnalisisLaboratorioBean.indicador.nombre}" readonly="true"/>
 
-                                <p:selectOneMenu autoWidth="true" panelStyle="width:75px" effect="fold">
-                                    <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems value="#{registrarAnalisisLaboratorioBean.listIndicador}" var="indicador" itemValue="#{indicador.nombre}"  itemLabel="#{indicador.nombre}" />
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="muestraExamenLaboratorio" value="Muestra: "/>
-                                <p:inputText id="muestraExamenLaboratorio" />
+                                <p:outputLabel value="Muestra" for="muestraExamenLaboratorio" />
+                                <p:inputText id="muestraExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.muestraExamen}"/>
+                                <p:commandButton value="Agregar" actionListener="#{registrarAnalisisLaboratorioBean.agregarListaMuestra}" update="exam"/>
+                                <p:orderList id="listaMuestra" value="#{registrarAnalisisLaboratorioBean.listaMuestraExamen}" var="muestraExamen" disabled="true" controlsLocation="none" itemLabel="#{muestraExamen}" itemValue="#{muestraExamen}"/>
                                 <p:commandButton value="Registrar" actionListener="#{registrarAnalisisLaboratorioBean.registrarAnalisis}" update=":form:growl"/>
                             </h:panelGrid>
                         </p:tab>

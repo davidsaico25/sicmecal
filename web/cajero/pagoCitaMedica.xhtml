@@ -1,10 +1,105 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../template_user.xhtml">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="content">
-        Pago Cita Medica
-    </ui:define>
+    <body>
 
-</ui:composition>
+        <ui:composition template="./../template_user.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="form">
+                    
+                    <p:growl id="growl" life="3000" />
+                    
+                    <div class="ui-fluid">
+                    
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
+                            <p:dataTable id="tableRegistrarPagos" var="citaMedica" value="#{registrarPagosBean.listCitaMedica}" widgetVar="citaMedicaTable" emptyMessage="No se encuentran citas médicas pendientes" filteredValue="#{registrarPagosBean.filteredListCitaMedica}" reflow="true" rows="5" paginator="true" >
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <p:outputLabel value="Buscar: " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('citaMedicaTable').filter()" style="width: 150px" placeholder="Enter keyword" />
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:column filterBy="#{citaMedica.codCitaMedica}" headerText="Código de Cita Médica:">
+                                    <p:outputLabel value="#{citaMedica.codCitaMedica}" />
+                                </p:column>
+                                <p:column filterBy="#{citaMedica.paciente.usuario.persona.nombre} #{citaMedica.paciente.usuario.persona.apellidop} #{citaMedica.paciente.usuario.persona.apellidom}" headerText="Nombre:">
+                                    <p:outputLabel value="#{citaMedica.paciente.usuario.persona.nombre} #{citaMedica.paciente.usuario.persona.apellidop} #{citaMedica.paciente.usuario.persona.apellidom}" />
+                                </p:column>
+                                <p:column filterBy="#{citaMedica.turno.medico.especialidad.nombre}" headerText="Especialidad:">
+                                    <p:outputLabel value="#{citaMedica.turno.medico.especialidad.nombre}" />
+                                </p:column>
+                                <p:column headerText="FechaRegistro">
+                                    <p:outputLabel value="#{citaMedica.fechaCreacion}" />
+                                </p:column>
+                                <p:column headerText="Horario">
+                                    <p:outputLabel value="#{citaMedica.turno.horaInicio}">
+                                        <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                    </p:outputLabel>
+                                    <p:outputLabel value=" - " />
+                                    <p:outputLabel value="#{citaMedica.turno.horaFin}">
+                                        <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                    </p:outputLabel>
+                                </p:column>
+                                
+                                <p:column headerText="Accion" style="width: 100px; text-align: center;" >
+                                    <p:panelGrid columns="2" styleClass="tableNoBorder">
+                                        <p:commandButton update=":form:citaMedicaDetail" oncomplete="PF('citaMedicaDialog').show()" icon="ui-icon-search" title="Ver" >
+                                            <f:setPropertyActionListener value="#{citaMedica}" target="#{registrarPagosBean.selectedCitaMedica}" />
+                                        </p:commandButton>
+                                        <p:commandButton id="btnRegistrarPago" actionListener="#{registrarPagosBean.registrarPagos}" update=":form:growl" icon="fa fa-book" title="Registrar" >
+                                            <f:attribute name="codCitaMedica" value="#{citaMedica.codCitaMedica}" />
+                                            <f:attribute name="nroDocumento" value="#{citaMedica.paciente.usuario.persona.numeroDocumento}" />
+                                            <p:confirm header="Confirmacion" message="¿Desea continuar con el pago de esta cita?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </p:column>
+                            </p:dataTable>
+                            
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+                            </p:confirmDialog>
+                            
+                            <p:dialog header="Informacion cita medica" widgetVar="citaMedicaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+                                <p:outputPanel id="citaMedicaDetail" style="text-align: center">
+                                    <p:panelGrid columns="2" rendered="#{not empty registrarPagosBean.selectedCitaMedica}" columnClasses="label,value">
+                                        <f:facet name="header">
+                                            CitaMedica
+                                        </f:facet>
+                                        <p:outputLabel value="Codigo de Cita: " />
+                                        <p:outputLabel value="#{registrarPagosBean.selectedCitaMedica.codCitaMedica}" />
+                                        <p:outputLabel value="Nombre del paciente: " />
+                                        <p:outputLabel value="#{registrarPagosBean.selectedCitaMedica.paciente.usuario.persona.nombre} #{registrarPagosBean.selectedCitaMedica.paciente.usuario.persona.apellidop} #{registrarPagosBean.selectedCitaMedica.paciente.usuario.persona.apellidom}" />
+                                        <p:outputLabel value="Especialidad: " />
+                                        <p:outputLabel value="#{registrarPagosBean.selectedCitaMedica.turno.medico.especialidad.nombre}" />
+                                        <p:outputLabel value="Horario: "/>
+                                        <p:outputLabel value="#{registrarPagosBean.selectedCitaMedica.turno.horaInicio}">
+                                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                        </p:outputLabel>
+                                        <p:outputLabel value=" - " />
+                                        <p:outputLabel value="#{registrarPagosBean.selectedCitaMedica.turno.horaFin}">
+                                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                                        </p:outputLabel>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                        </p:panelGrid>
+                        
+                    </div>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

@@ -6,7 +6,7 @@ import model.RecetaMedica;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class DAORecetaMedica extends ADAO_crud<Object> implements Serializable{
+public class DAORecetaMedica extends ADAO_crud<Object> implements Serializable {
     
     public RecetaMedica getRecetaMedicabyHistorialClinico(Diagnostico diagnostico){
         RecetaMedica recetaMedica = null;

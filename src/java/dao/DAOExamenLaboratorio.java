@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.Serializable;
+import java.util.List;
 import model.Diagnostico;
 import model.ExamenLaboratorio;
 import org.hibernate.Query;
@@ -24,5 +25,21 @@ public class DAOExamenLaboratorio extends ADAO_crud<Object> implements Serializa
             }
         }
         return null;
+    }
+    
+    public List<ExamenLaboratorio> getListExamenLaboratorio(){
+        List<ExamenLaboratorio> listExamenLaboratorio = null;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from ExamenLaboratorio");
+            listExamenLaboratorio = (List<ExamenLaboratorio>) query.list();
+        } catch (Exception e) {
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return listExamenLaboratorio;
     }
 }
