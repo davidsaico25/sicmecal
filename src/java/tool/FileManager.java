@@ -19,13 +19,14 @@ import model.Turno;
  */
 public class FileManager {
     
-    public static void crearTicketCitaMedica(CitaMedica citaMedica) throws FileNotFoundException, DocumentException {
+    public static String crearTicketCitaMedica(CitaMedica citaMedica) throws FileNotFoundException, DocumentException {
         Persona persona = citaMedica.getPaciente().getUsuario().getPersona();
         Turno turno = citaMedica.getTurno();
         Medico medico = turno.getMedico();
         Persona personaMedico = medico.getUsuario().getPersona();
         Especialidad especialidad = medico.getEspecialidad();
-        FileOutputStream archivo = new FileOutputStream("C:\\Users\\davisonsp\\Documents\\NetBeansProjects\\sicmecal\\docs\\citas medicas\\" + persona.getNumeroDocumento() + "_" + citaMedica.getCodCitaMedica() + ".pdf");
+        String path = "C:\\Users\\davisonsp\\Documents\\NetBeansProjects\\sicmecal\\docs\\citas medicas\\" + persona.getNumeroDocumento() + "_" + citaMedica.getCodCitaMedica() + ".pdf";
+        FileOutputStream archivo = new FileOutputStream(path);
         Document documento = new Document();
         PdfWriter.getInstance(documento, archivo);
         documento.open();
@@ -49,5 +50,6 @@ public class FileManager {
         documento.add(new Paragraph("Horario: " + horaInicio + " - " + horaFin));
         documento.add(new Paragraph("Por favor de acercarse a cancelar la cita medica dentro de 2 dias, si no se procedera a cancelar su cita medica."));
         documento.close();
+        return path;
     }
 }

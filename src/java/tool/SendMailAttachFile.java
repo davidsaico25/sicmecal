@@ -25,33 +25,18 @@ public class SendMailAttachFile {
 
     final String CORREO_SICMECAL = "sicmecal@outlook.com";
     final String PASSWORD_SICMECAL = "tp2016ii";
-    String servidorSMTP;
+    String servidorSMTP = "smtp.live.com";
     String puertoEnvio;
-    String[] destinatarios;
+    String destinatario;
     String asunto;
     String cuerpo = null;
-    public static String[] archivoAdjunto;
-    int servidor;
+    public String archivoAdjunto;
 
-    public SendMailAttachFile(String[] dest, String asun, String mens, String[] archivo, int server) {
-        this.destinatarios = dest;
+    public SendMailAttachFile(String dest, String asun, String mens, String archivo) {
+        this.destinatario = dest;
         this.asunto = asun;
         this.cuerpo = mens;
         this.archivoAdjunto = archivo;
-        this.servidor = server;
-        setupServer();
-    }
-
-    public final void setupServer() {
-        if (this.servidor == 0) {
-            this.servidorSMTP = "smtp.gmail.com";
-        }
-        if (this.servidor == 1) {
-            this.servidorSMTP = "smtp.live.com";
-        }
-        if (this.servidor == 2) {
-            this.servidorSMTP = "smtp.mail.yahoo.com";
-        }
     }
 
     public void send()
@@ -59,44 +44,35 @@ public class SendMailAttachFile {
         Properties props = null;
         props = new Properties();
         props.put("mail.smtp.host", servidorSMTP);
-        // if (this.servidor != 2) {
         props.setProperty("mail.smtp.starttls.enable", "true");
-        //}
         props.setProperty("mail.smtp.port", "587");
         props.setProperty("mail.smtp.user", CORREO_SICMECAL);
         props.setProperty("mail.smtp.auth", "true");
 
         SecurityManager security = System.getSecurityManager();
 
-        //Authenticator auth = new autentificadorSMTP();
         Session session = Session.getInstance(props, new GMailAuthenticator(CORREO_SICMECAL, PASSWORD_SICMECAL));
 
         BodyPart texto = new MimeBodyPart();
         texto.setText(this.cuerpo);
 
-        BodyPart[] adjunto = new BodyPart[this.archivoAdjunto.length];
-        for (int j = 0; j < this.archivoAdjunto.length; j++) {
-            adjunto[j] = new MimeBodyPart();
-            adjunto[j].setDataHandler(new DataHandler(new FileDataSource(this.archivoAdjunto[j])));
-
-            String[] rutaArchivo = this.archivoAdjunto[j].split("/");
-            int nombre = rutaArchivo.length - 1;
-            adjunto[j].setFileName(rutaArchivo[nombre]);
-        }
-
+        BodyPart adjunto = new MimeBodyPart();
+        adjunto.setDataHandler(new DataHandler(new FileDataSource(this.archivoAdjunto)));
+        String fileName = archivoAdjunto.substring(archivoAdjunto.lastIndexOf("\\"));
+        adjunto.setFileName(fileName);
+        
         MimeMultipart multiParte = new MimeMultipart();
         multiParte.addBodyPart(texto);
-        for (BodyPart aux : adjunto) {
-            multiParte.addBodyPart(aux);
-        }
+        multiParte.addBodyPart(adjunto);
+        
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(this.CORREO_SICMECAL));
-        Address[] destinos = new Address[this.destinatarios.length];
-        for (int i = 0; i < destinos.length; i++) {
-            destinos[i] = new InternetAddress(this.destinatarios[i]);
-        }
-        message.addRecipients(Message.RecipientType.TO, destinos);
+        
+        Address receptor = new InternetAddress(this.destinatario);
+        message.addRecipient(Message.RecipientType.TO, receptor);
+        
         message.setSubject(this.asunto);
+        
         message.setContent(multiParte);
 
         Transport t = session.getTransport("smtp");
@@ -104,7 +80,6 @@ public class SendMailAttachFile {
         t.sendMessage(message, message.getAllRecipients());
 
         t.close();
-
     }
 
     private class GMailAuthenticator extends Authenticator {
