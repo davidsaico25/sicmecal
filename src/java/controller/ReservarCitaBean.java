@@ -1,10 +1,12 @@
 package controller;
 
+import com.itextpdf.text.DocumentException;
 import dao.DAOCitaMedica;
 import dao.DAOEspecialidad;
 import dao.DAOHistorialClinico;
 import dao.DAOPaciente;
 import dao.DAOTurno;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import model.CitaMedica;
 import model.Especialidad;
@@ -82,18 +85,13 @@ public class ReservarCitaBean implements Serializable {
         double numCitas = turno.getNumCitasMax().doubleValue() - 1;
         turno.setNumCitasMax(BigDecimal.valueOf(numCitas));
         daoTurno.actualizar(turno);
+        
         try {
-            FileManager.crearTicketCitaMedica(citaMedica);
-        } catch (Exception ex) {}
-        String[] dest = new String[1];
-        Persona persona = paciente.getUsuario().getPersona();
-        dest[0] = persona.getCorreo();
-        String[] archivo = new String[1];
-        archivo[0] = "C:\\Users\\davisonsp\\Documents\\NetBeansProjects\\sicmecal\\docs\\citas medicas\\" + persona.getNumeroDocumento() + "_" + citaMedica.getCodCitaMedica() + ".pdf";
-        SendMailAttachFile sendMailAttachFile = new SendMailAttachFile(dest, "citaMedica", "Su cita Medica fue registrado con exito. Adjunto documento.", archivo, 1);
-        try {
+            String file = FileManager.crearTicketCitaMedica(citaMedica);
+            SendMailAttachFile sendMailAttachFile = new SendMailAttachFile(paciente.getUsuario().getPersona().getCorreo(), "citaMedica", "Su cita Medica fue registrado con exito. Adjunto documento.", file);
             sendMailAttachFile.send();
-        } catch (Exception ex) {}
+        } catch (DocumentException | FileNotFoundException | MessagingException ex) {}
+        
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cita Reservada", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/paciente/index.xhtml");
