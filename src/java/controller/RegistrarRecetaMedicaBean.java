@@ -70,7 +70,6 @@ public class RegistrarRecetaMedicaBean implements Serializable {
         daoDetalleRecetaMedica = new DAODetalleRecetaMedica();
         detalleRecetaMedica.setMedicamento(medicamento);
         detalleRecetaMedica.setRecetaMedica(recetaMedica);
-        System.out.println(detalleRecetaMedica.getCantidad());
         detalleRecetaMedica.setCantidad(detalleRecetaMedica.getCantidad());
         detalleRecetaMedica.setIndicacion(detalleRecetaMedica.getIndicacion());
         
@@ -79,7 +78,6 @@ public class RegistrarRecetaMedicaBean implements Serializable {
         detalleRecetaMedicaId.setCodMedicamento(medicamento.getCodMedicamento());
         detalleRecetaMedica.setId(detalleRecetaMedicaId);
         daoRecetaMedica.crear(detalleRecetaMedica);
-        System.out.println("/////////////");
         
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Receta Medica Registrada", "");
         FacesContext.getCurrentInstance().addMessage(null, message);

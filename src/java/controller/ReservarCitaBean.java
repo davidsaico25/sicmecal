@@ -22,7 +22,6 @@ import model.CitaMedica;
 import model.Especialidad;
 import model.HistorialClinico;
 import model.Paciente;
-import model.Persona;
 import model.Turno;
 import model.Usuario;
 import tool.FileManager;

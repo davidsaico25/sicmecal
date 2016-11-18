@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -17,9 +18,44 @@
                     <h:panelGrid columnClasses="value">
                         
                         <h3>Horario Citas</h3>
-                        <p:schedule value="#{indexPacienteBean.lazyEventModel}" timeZone="GMT-5" resizable="false" draggable="false" locale="es"/>
+                        <p:schedule value="#{indexPacienteBean.lazyEventModel}" timeZone="GMT-5" resizable="false" draggable="false" locale="es" >
+                            <p:ajax event="eventSelect" listener="#{indexPacienteBean.onEventSelect}" update="citaMedicaDetails" oncomplete="PF('citaMedicaDialog').show();" />
+                        </p:schedule>
                         
                     </h:panelGrid>
+                    
+                    <p:dialog widgetVar="citaMedicaDialog" header="Detalle Cita Medica" showEffect="clip" hideEffect="clip" modal="true" resizable="false" closeOnEscape="true">
+                        <h:panelGrid id="citaMedicaDetails" columns="2">
+                            <p:outputLabel value="Especialidad:" />
+                            <p:outputLabel value="#{indexPacienteBean.event.title}" />
+                            
+                            <p:outputLabel value="Medico:" />
+                            <p:outputLabel value="#{indexPacienteBean.citaMedica.turno.medico.usuario.persona.apellidop} #{indexPacienteBean.citaMedica.turno.medico.usuario.persona.apellidom} #{indexPacienteBean.citaMedica.turno.medico.usuario.persona.nombre}" />
+                            
+                            <p:outputLabel value="Turno:" />
+                            <p:outputLabel value="" />
+                            
+                            <p:outputLabel value="Fecha:" />
+                            <p:outputLabel value="#{indexPacienteBean.citaMedica.turno.horaInicio}">
+                                <f:convertDateTime pattern="dd-MM-YYYY" timeZone="GMT-5" />
+                            </p:outputLabel>
+                            
+                            <p:outputLabel value="Hora Inicio" />
+                            <p:outputLabel  value="#{indexPacienteBean.citaMedica.turno.horaInicio}">
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                            </p:outputLabel>
+                            
+                            <p:outputLabel value="Hora Fin" />
+                            <p:outputLabel  value="#{indexPacienteBean.citaMedica.turno.horaFin}">
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT-5" />
+                            </p:outputLabel>
+                            
+                            <p:commandButton value="Download" actionListener="${indexPacienteBean.download}" ajax="false" icon="ui-icon-arrowthick-1-s" >
+                                <p:fileDownload value="#{indexPacienteBean.file}" />
+                            </p:commandButton>
+                            
+                        </h:panelGrid>
+                    </p:dialog>
                     
                 </h:form>
                 
