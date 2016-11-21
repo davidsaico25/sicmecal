@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
+// Generated Nov 21, 2016 7:45:14 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,6 +13,8 @@ public class Diagnostico  implements java.io.Serializable {
 
      private BigDecimal codDiagnostico;
      private HistorialClinico historialClinico;
+     private String descripcion;
+     private String medico;
      private Date fecha;
      private RecetaMedica recetaMedica;
      private Triaje triaje;
@@ -22,14 +24,18 @@ public class Diagnostico  implements java.io.Serializable {
     }
 
 	
-    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, Date fecha) {
+    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, String descripcion, String medico, Date fecha) {
         this.codDiagnostico = codDiagnostico;
         this.historialClinico = historialClinico;
+        this.descripcion = descripcion;
+        this.medico = medico;
         this.fecha = fecha;
     }
-    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, Date fecha, RecetaMedica recetaMedica, Triaje triaje, OrdenMedico ordenMedico) {
+    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, String descripcion, String medico, Date fecha, RecetaMedica recetaMedica, Triaje triaje, OrdenMedico ordenMedico) {
        this.codDiagnostico = codDiagnostico;
        this.historialClinico = historialClinico;
+       this.descripcion = descripcion;
+       this.medico = medico;
        this.fecha = fecha;
        this.recetaMedica = recetaMedica;
        this.triaje = triaje;
@@ -49,6 +55,20 @@ public class Diagnostico  implements java.io.Serializable {
     
     public void setHistorialClinico(HistorialClinico historialClinico) {
         this.historialClinico = historialClinico;
+    }
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+    
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public String getMedico() {
+        return this.medico;
+    }
+    
+    public void setMedico(String medico) {
+        this.medico = medico;
     }
     public Date getFecha() {
         return this.fecha;

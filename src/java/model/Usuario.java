@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
+// Generated Nov 21, 2016 7:45:14 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -24,6 +24,7 @@ public class Usuario  implements java.io.Serializable {
      private Medico medico;
      private Paciente paciente;
      private Tecnologo tecnologo;
+     private Enfermero enfermero;
 
     public Usuario() {
     }
@@ -38,7 +39,7 @@ public class Usuario  implements java.io.Serializable {
         this.fechaModificacion = fechaModificacion;
         this.fechaCreacion = fechaCreacion;
     }
-    public Usuario(String username, Perfil perfil, Persona persona, String password, char estado, Date fechaModificacion, Date fechaCreacion, Cajero cajero, Set recepcionistas, Medico medico, Paciente paciente, Tecnologo tecnologo) {
+    public Usuario(String username, Perfil perfil, Persona persona, String password, char estado, Date fechaModificacion, Date fechaCreacion, Cajero cajero, Set recepcionistas, Medico medico, Paciente paciente, Tecnologo tecnologo, Enfermero enfermero) {
        this.username = username;
        this.perfil = perfil;
        this.persona = persona;
@@ -51,6 +52,7 @@ public class Usuario  implements java.io.Serializable {
        this.medico = medico;
        this.paciente = paciente;
        this.tecnologo = tecnologo;
+       this.enfermero = enfermero;
     }
    
     public String getUsername() {
@@ -136,6 +138,13 @@ public class Usuario  implements java.io.Serializable {
     
     public void setTecnologo(Tecnologo tecnologo) {
         this.tecnologo = tecnologo;
+    }
+    public Enfermero getEnfermero() {
+        return this.enfermero;
+    }
+    
+    public void setEnfermero(Enfermero enfermero) {
+        this.enfermero = enfermero;
     }
 
 

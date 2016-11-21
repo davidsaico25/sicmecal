@@ -41,28 +41,29 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection/>
+  <table-filter match-name="MEDICO"/>
+  <table-filter match-name="INSUMO"/>
+  <table-filter match-name="MODULO"/>
+  <table-filter match-name="ORDEN_MEDICO"/>
   <table-filter match-name="EXAMEN_LABORATORIO"/>
-  <table-filter match-name="INDICADOR"/>
+  <table-filter match-name="RECETA_MEDICA"/>
+  <table-filter match-name="PERFIL"/>
+  <table-filter match-name="SUB_MODULO"/>
+  <table-filter match-name="DETALLE_RECETA_MEDICA"/>
+  <table-filter match-name="ESPECIALIDAD"/>
+  <table-filter match-name="HISTORIAL_CLINICO"/>
+  <table-filter match-name="MEDICAMENTO"/>
+  <table-filter match-name="ENFERMERO"/>
+  <table-filter match-name="TRIAJE"/>
+  <table-filter match-name="DIAGNOSTICO"/>
+  <table-filter match-name="TECNOLOGO"/>
+  <table-filter match-name="USUARIO"/>
+  <table-filter match-name="RECEPCIONISTA"/>
+  <table-filter match-name="PACIENTE"/>
   <table-filter match-name="MUESTRA"/>
   <table-filter match-name="CITA_MEDICA"/>
-  <table-filter match-name="MEDICO"/>
-  <table-filter match-name="DETALLE_RECETA_MEDICA"/>
-  <table-filter match-name="TURNO"/>
-  <table-filter match-name="SUB_MODULO"/>
-  <table-filter match-name="INSUMO"/>
-  <table-filter match-name="HISTORIAL_CLINICO"/>
-  <table-filter match-name="MODULO"/>
-  <table-filter match-name="CAJERO"/>
-  <table-filter match-name="RECETA_MEDICA"/>
-  <table-filter match-name="USUARIO"/>
-  <table-filter match-name="TECNOLOGO"/>
-  <table-filter match-name="ORDEN_MEDICO"/>
-  <table-filter match-name="TRIAJE"/>
-  <table-filter match-name="PERFIL"/>
   <table-filter match-name="PERSONA"/>
-  <table-filter match-name="RECEPCIONISTA"/>
-  <table-filter match-name="MEDICAMENTO"/>
-  <table-filter match-name="PACIENTE"/>
-  <table-filter match-name="DIAGNOSTICO"/>
-  <table-filter match-name="ESPECIALIDAD"/>
+  <table-filter match-name="INDICADOR"/>
+  <table-filter match-name="CAJERO"/>
+  <table-filter match-name="TURNO"/>
 </hibernate-reverse-engineering>

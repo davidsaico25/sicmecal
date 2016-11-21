@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 10, 2016 6:17:23 AM by Hibernate Tools 4.3.1
+// Generated Nov 21, 2016 7:45:14 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,16 +12,20 @@ public class Triaje  implements java.io.Serializable {
 
      private BigDecimal codDiagnostico;
      private Diagnostico diagnostico;
+     private String observacion;
      private BigDecimal peso;
      private BigDecimal presion;
+     private String enfermera;
 
     public Triaje() {
     }
 
-    public Triaje(Diagnostico diagnostico, BigDecimal peso, BigDecimal presion) {
+    public Triaje(Diagnostico diagnostico, String observacion, BigDecimal peso, BigDecimal presion, String enfermera) {
        this.diagnostico = diagnostico;
+       this.observacion = observacion;
        this.peso = peso;
        this.presion = presion;
+       this.enfermera = enfermera;
     }
    
     public BigDecimal getCodDiagnostico() {
@@ -38,6 +42,13 @@ public class Triaje  implements java.io.Serializable {
     public void setDiagnostico(Diagnostico diagnostico) {
         this.diagnostico = diagnostico;
     }
+    public String getObservacion() {
+        return this.observacion;
+    }
+    
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
     public BigDecimal getPeso() {
         return this.peso;
     }
@@ -51,6 +62,13 @@ public class Triaje  implements java.io.Serializable {
     
     public void setPresion(BigDecimal presion) {
         this.presion = presion;
+    }
+    public String getEnfermera() {
+        return this.enfermera;
+    }
+    
+    public void setEnfermera(String enfermera) {
+        this.enfermera = enfermera;
     }
 
 

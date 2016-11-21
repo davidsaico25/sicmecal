@@ -31,6 +31,7 @@
     <mapping resource="model/Muestra.hbm.xml"/>
     <mapping resource="model/RecetaMedica.hbm.xml"/>
     <mapping resource="model/Tecnologo.hbm.xml"/>
+    <mapping resource="model/Enfermero.hbm.xml"/>
     <mapping resource="model/Especialidad.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
