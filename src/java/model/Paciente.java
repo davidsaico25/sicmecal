@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 1:56:10 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 2:21:24 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,6 +13,8 @@ public class Paciente  implements java.io.Serializable {
 
      private String username;
      private Usuario usuario;
+     private String nombreContacto;
+     private String numeroContacto;
      private char estado;
      private Set citaMedicas = new HashSet(0);
      private Set historialClinicos = new HashSet(0);
@@ -25,8 +27,10 @@ public class Paciente  implements java.io.Serializable {
         this.usuario = usuario;
         this.estado = estado;
     }
-    public Paciente(Usuario usuario, char estado, Set citaMedicas, Set historialClinicos) {
+    public Paciente(Usuario usuario, String nombreContacto, String numeroContacto, char estado, Set citaMedicas, Set historialClinicos) {
        this.usuario = usuario;
+       this.nombreContacto = nombreContacto;
+       this.numeroContacto = numeroContacto;
        this.estado = estado;
        this.citaMedicas = citaMedicas;
        this.historialClinicos = historialClinicos;
@@ -45,6 +49,20 @@ public class Paciente  implements java.io.Serializable {
     
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    public String getNombreContacto() {
+        return this.nombreContacto;
+    }
+    
+    public void setNombreContacto(String nombreContacto) {
+        this.nombreContacto = nombreContacto;
+    }
+    public String getNumeroContacto() {
+        return this.numeroContacto;
+    }
+    
+    public void setNumeroContacto(String numeroContacto) {
+        this.numeroContacto = numeroContacto;
     }
     public char getEstado() {
         return this.estado;

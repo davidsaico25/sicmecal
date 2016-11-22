@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 1:56:10 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 2:21:24 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,8 +12,8 @@ public class Medico  implements java.io.Serializable {
 
 
      private String username;
-     private Usuario usuario;
      private Especialidad especialidad;
+     private Usuario usuario;
      private char estado;
      private Set turnos = new HashSet(0);
 
@@ -21,14 +21,14 @@ public class Medico  implements java.io.Serializable {
     }
 
 	
-    public Medico(Usuario usuario, Especialidad especialidad, char estado) {
-        this.usuario = usuario;
+    public Medico(Especialidad especialidad, Usuario usuario, char estado) {
         this.especialidad = especialidad;
+        this.usuario = usuario;
         this.estado = estado;
     }
-    public Medico(Usuario usuario, Especialidad especialidad, char estado, Set turnos) {
-       this.usuario = usuario;
+    public Medico(Especialidad especialidad, Usuario usuario, char estado, Set turnos) {
        this.especialidad = especialidad;
+       this.usuario = usuario;
        this.estado = estado;
        this.turnos = turnos;
     }
@@ -40,19 +40,19 @@ public class Medico  implements java.io.Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-    
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
     public Especialidad getEspecialidad() {
         return this.especialidad;
     }
     
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
+    }
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     public char getEstado() {
         return this.estado;

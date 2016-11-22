@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 1:56:10 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 2:21:24 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,8 +12,8 @@ public class CitaMedica  implements java.io.Serializable {
 
 
      private BigDecimal codCitaMedica;
-     private Turno turno;
      private Paciente paciente;
+     private Turno turno;
      private Date fechaCreacion;
      private Date fechaModificacion;
      private char estadoPago;
@@ -24,19 +24,19 @@ public class CitaMedica  implements java.io.Serializable {
     }
 
 	
-    public CitaMedica(BigDecimal codCitaMedica, Turno turno, Paciente paciente, Date fechaCreacion, Date fechaModificacion, char estadoPago, char estado) {
+    public CitaMedica(BigDecimal codCitaMedica, Paciente paciente, Turno turno, Date fechaCreacion, Date fechaModificacion, char estadoPago, char estado) {
         this.codCitaMedica = codCitaMedica;
-        this.turno = turno;
         this.paciente = paciente;
+        this.turno = turno;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
         this.estadoPago = estadoPago;
         this.estado = estado;
     }
-    public CitaMedica(BigDecimal codCitaMedica, Turno turno, Paciente paciente, Date fechaCreacion, Date fechaModificacion, char estadoPago, char estado, String cajero) {
+    public CitaMedica(BigDecimal codCitaMedica, Paciente paciente, Turno turno, Date fechaCreacion, Date fechaModificacion, char estadoPago, char estado, String cajero) {
        this.codCitaMedica = codCitaMedica;
-       this.turno = turno;
        this.paciente = paciente;
+       this.turno = turno;
        this.fechaCreacion = fechaCreacion;
        this.fechaModificacion = fechaModificacion;
        this.estadoPago = estadoPago;
@@ -51,19 +51,19 @@ public class CitaMedica  implements java.io.Serializable {
     public void setCodCitaMedica(BigDecimal codCitaMedica) {
         this.codCitaMedica = codCitaMedica;
     }
-    public Turno getTurno() {
-        return this.turno;
-    }
-    
-    public void setTurno(Turno turno) {
-        this.turno = turno;
-    }
     public Paciente getPaciente() {
         return this.paciente;
     }
     
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    public Turno getTurno() {
+        return this.turno;
+    }
+    
+    public void setTurno(Turno turno) {
+        this.turno = turno;
     }
     public Date getFechaCreacion() {
         return this.fechaCreacion;
