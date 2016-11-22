@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 22, 2016 2:50:49 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 22, 2016 11:28:17 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Indicador" table="INDICADOR" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="codIndicador" type="big_decimal">
@@ -16,6 +16,9 @@
         </property>
         <property name="descripcion" type="string">
             <column name="DESCRIPCION" length="45" not-null="true" />
+        </property>
+        <property name="precio" type="big_decimal">
+            <column name="PRECIO" precision="22" scale="0" not-null="true" />
         </property>
         <property name="estado" type="char">
             <column name="ESTADO" length="1" not-null="true" />
