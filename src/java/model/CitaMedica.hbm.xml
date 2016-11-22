@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 21, 2016 7:45:15 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 22, 2016 1:56:11 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.CitaMedica" table="CITA_MEDICA" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="codCitaMedica" type="big_decimal">
             <column name="COD_CITA_MEDICA" precision="22" scale="0" />
             <generator class="increment" />
         </id>
-        <many-to-one name="paciente" class="model.Paciente" fetch="select">
-            <column name="PACIENTE_USERNAME" length="45" not-null="true" />
-        </many-to-one>
         <many-to-one name="turno" class="model.Turno" fetch="select">
             <column name="COD_TURNO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="model.Paciente" fetch="select">
+            <column name="PACIENTE_USERNAME" length="45" not-null="true" />
         </many-to-one>
         <property name="fechaCreacion" type="date">
             <column name="FECHA_CREACION" length="7" not-null="true" />
@@ -25,6 +25,9 @@
         </property>
         <property name="estado" type="char">
             <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="cajero" type="string">
+            <column name="CAJERO" length="45" />
         </property>
     </class>
 </hibernate-mapping>

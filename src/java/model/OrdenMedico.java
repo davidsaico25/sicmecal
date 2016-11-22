@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 21, 2016 7:45:14 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 1:56:10 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,23 +15,29 @@ public class OrdenMedico  implements java.io.Serializable {
 
      private BigDecimal codDiagnostico;
      private Diagnostico diagnostico;
-     private char estado;
+     private String tecnologo;
      private Date fechaEjecucion;
+     private String estadoPago;
+     private String cajero;
+     private char estado;
      private Set muestras = new HashSet(0);
 
     public OrdenMedico() {
     }
 
 	
-    public OrdenMedico(Diagnostico diagnostico, char estado, Date fechaEjecucion) {
+    public OrdenMedico(Diagnostico diagnostico, String estadoPago, char estado) {
         this.diagnostico = diagnostico;
+        this.estadoPago = estadoPago;
         this.estado = estado;
-        this.fechaEjecucion = fechaEjecucion;
     }
-    public OrdenMedico(Diagnostico diagnostico, char estado, Date fechaEjecucion, Set muestras) {
+    public OrdenMedico(Diagnostico diagnostico, String tecnologo, Date fechaEjecucion, String estadoPago, String cajero, char estado, Set muestras) {
        this.diagnostico = diagnostico;
-       this.estado = estado;
+       this.tecnologo = tecnologo;
        this.fechaEjecucion = fechaEjecucion;
+       this.estadoPago = estadoPago;
+       this.cajero = cajero;
+       this.estado = estado;
        this.muestras = muestras;
     }
    
@@ -49,12 +55,12 @@ public class OrdenMedico  implements java.io.Serializable {
     public void setDiagnostico(Diagnostico diagnostico) {
         this.diagnostico = diagnostico;
     }
-    public char getEstado() {
-        return this.estado;
+    public String getTecnologo() {
+        return this.tecnologo;
     }
     
-    public void setEstado(char estado) {
-        this.estado = estado;
+    public void setTecnologo(String tecnologo) {
+        this.tecnologo = tecnologo;
     }
     public Date getFechaEjecucion() {
         return this.fechaEjecucion;
@@ -62,6 +68,27 @@ public class OrdenMedico  implements java.io.Serializable {
     
     public void setFechaEjecucion(Date fechaEjecucion) {
         this.fechaEjecucion = fechaEjecucion;
+    }
+    public String getEstadoPago() {
+        return this.estadoPago;
+    }
+    
+    public void setEstadoPago(String estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+    public String getCajero() {
+        return this.cajero;
+    }
+    
+    public void setCajero(String cajero) {
+        this.cajero = cajero;
+    }
+    public char getEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(char estado) {
+        this.estado = estado;
     }
     public Set getMuestras() {
         return this.muestras;

@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 21, 2016 7:45:14 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 1:56:10 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -11,18 +11,18 @@ public class DetalleRecetaMedica  implements java.io.Serializable {
 
 
      private DetalleRecetaMedicaId id;
-     private Medicamento medicamento;
      private RecetaMedica recetaMedica;
+     private Medicamento medicamento;
      private BigDecimal cantidad;
      private String indicacion;
 
     public DetalleRecetaMedica() {
     }
 
-    public DetalleRecetaMedica(DetalleRecetaMedicaId id, Medicamento medicamento, RecetaMedica recetaMedica, BigDecimal cantidad, String indicacion) {
+    public DetalleRecetaMedica(DetalleRecetaMedicaId id, RecetaMedica recetaMedica, Medicamento medicamento, BigDecimal cantidad, String indicacion) {
        this.id = id;
-       this.medicamento = medicamento;
        this.recetaMedica = recetaMedica;
+       this.medicamento = medicamento;
        this.cantidad = cantidad;
        this.indicacion = indicacion;
     }
@@ -34,19 +34,19 @@ public class DetalleRecetaMedica  implements java.io.Serializable {
     public void setId(DetalleRecetaMedicaId id) {
         this.id = id;
     }
-    public Medicamento getMedicamento() {
-        return this.medicamento;
-    }
-    
-    public void setMedicamento(Medicamento medicamento) {
-        this.medicamento = medicamento;
-    }
     public RecetaMedica getRecetaMedica() {
         return this.recetaMedica;
     }
     
     public void setRecetaMedica(RecetaMedica recetaMedica) {
         this.recetaMedica = recetaMedica;
+    }
+    public Medicamento getMedicamento() {
+        return this.medicamento;
+    }
+    
+    public void setMedicamento(Medicamento medicamento) {
+        this.medicamento = medicamento;
     }
     public BigDecimal getCantidad() {
         return this.cantidad;
