@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 2:21:24 AM by Hibernate Tools 4.3.1
+// Generated Nov 22, 2016 2:50:49 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class OrdenMedico  implements java.io.Serializable {
      private Diagnostico diagnostico;
      private String tecnologo;
      private Date fechaEjecucion;
-     private String estadoPago;
+     private char estadoPago;
      private String cajero;
      private char estado;
      private Set muestras = new HashSet(0);
@@ -26,12 +26,12 @@ public class OrdenMedico  implements java.io.Serializable {
     }
 
 	
-    public OrdenMedico(Diagnostico diagnostico, String estadoPago, char estado) {
+    public OrdenMedico(Diagnostico diagnostico, char estadoPago, char estado) {
         this.diagnostico = diagnostico;
         this.estadoPago = estadoPago;
         this.estado = estado;
     }
-    public OrdenMedico(Diagnostico diagnostico, String tecnologo, Date fechaEjecucion, String estadoPago, String cajero, char estado, Set muestras) {
+    public OrdenMedico(Diagnostico diagnostico, String tecnologo, Date fechaEjecucion, char estadoPago, String cajero, char estado, Set muestras) {
        this.diagnostico = diagnostico;
        this.tecnologo = tecnologo;
        this.fechaEjecucion = fechaEjecucion;
@@ -69,11 +69,11 @@ public class OrdenMedico  implements java.io.Serializable {
     public void setFechaEjecucion(Date fechaEjecucion) {
         this.fechaEjecucion = fechaEjecucion;
     }
-    public String getEstadoPago() {
+    public char getEstadoPago() {
         return this.estadoPago;
     }
     
-    public void setEstadoPago(String estadoPago) {
+    public void setEstadoPago(char estadoPago) {
         this.estadoPago = estadoPago;
     }
     public String getCajero() {
