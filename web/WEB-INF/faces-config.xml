@@ -25,6 +25,24 @@
         </navigation-case>
         
         <navigation-case>
+            <from-outcome>registrarDiagnostico</from-outcome>
+            <to-view-id>/medico/registrarDiagnostico.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>registrarOrdenMedico</from-outcome>
+            <to-view-id>/medico/registrarOrdenMedico.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>registrarRecetaMedica</from-outcome>
+            <to-view-id>/medico/registrarRecetaMedica.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
             <from-outcome>tecnologo</from-outcome>
             <to-view-id>/tecnologo/index.xhtml</to-view-id>
             <redirect/>
@@ -33,6 +51,12 @@
         <navigation-case>
             <from-outcome>consultarStockInsumos</from-outcome>
             <to-view-id>/tecnologo/consultarStockInsumos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>consultarOrdenExamenLaboratorio</from-outcome>
+            <to-view-id>/tecnologo/consultarOrdenExamenLaboratorio.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         

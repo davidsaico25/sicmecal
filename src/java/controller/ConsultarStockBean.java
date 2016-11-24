@@ -27,6 +27,7 @@ public class ConsultarStockBean implements Serializable {
     DAOInsumo daoInsumo;
     private Insumo selectedInsumo;
     private List<Insumo> listInsumo;
+    private List<Insumo> listInsumo1;
     private List<Insumo> filteredListInsumo;
     
     public ConsultarStockBean() {
@@ -37,6 +38,7 @@ public class ConsultarStockBean implements Serializable {
         
         daoInsumo = new DAOInsumo();
         listInsumo = daoInsumo.getListInsumo();
+        listInsumo1 = daoInsumo.getListInsumo1();
     }
 
     public Usuario getUsuario() {
@@ -78,5 +80,12 @@ public class ConsultarStockBean implements Serializable {
     public void setFilteredListInsumo(List<Insumo> filteredListInsumo) {
         this.filteredListInsumo = filteredListInsumo;
     }
+    
+    public List<Insumo> getListInsumo1() {
+        return listInsumo1;
+    }
 
+    public void setListInsumo1(List<Insumo> listInsumo1) {
+        this.listInsumo1 = listInsumo1;
+    }
 }

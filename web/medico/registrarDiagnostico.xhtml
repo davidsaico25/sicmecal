@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template_user.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="growl" life="3000" />
+
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Numero Documento: *" />
+                <p:inputText value="#{registrarDiagnosticoBean.persona.numeroDocumento}" required="true"/>
+            </h:panelGrid>
+            <p:commandButton value="Buscar" actionListener = "#{registrarDiagnosticoBean.mostrarHC}" update="panel"/>
+            
+            <p:separator/>
+
+            <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel value="Nro. Historial Clinico:"/>
+                    <p:inputText id="nroHistorialClinico" value="#{registrarDiagnosticoBean.persona.numeroDocumento}" readonly="true" />
+                    <p:outputLabel value="Paciente:"/>
+                    <p:inputText id="nombrePaciente" value="#{registrarDiagnosticoBean.persona.nombre} #{registrarDiagnosticoBean.persona.apellidop} #{registrarDiagnosticoBean.persona.apellidom}" readonly="true" />
+                    <p:outputLabel value="Sexo" />
+                    <p:selectOneMenu id="sexo" value="#{registrarDiagnosticoBean.persona.sexo}" disabled="true" style="width:125px">
+                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem itemLabel="Femenino" itemValue="F" />
+                    </p:selectOneMenu>
+                    <h:outputText value="Fecha Nacimiento: " />
+                    <p:inputText id="fechaNacimiento" value="#{registrarDiagnosticoBean.persona.fechaNacimiento}" readonly="true"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Peso:" />
+                    <h:outputText value="Presion:" />
+                    <p:inputText value="#{registrarDiagnosticoBean.triaje.peso}" readonly="true"/>
+                    <p:inputText value="#{registrarDiagnosticoBean.triaje.presion}" readonly="true"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:tabView dynamic="true" cache="true" activeIndex="0" >
+                        <p:tab title="Diagnostico" >
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:outputLabel value="Descripción:"/>
+                                <p:inputTextarea id="descripcion" value="#{registrarDiagnosticoBean.diagnostico.descripcion}" rows="6" cols="33"/>
+                                <p:commandButton value="Registrar" actionListener="#{registrarDiagnosticoBean.registrar}" update=":form:growl"/>
+                            </h:panelGrid>
+                        </p:tab>
+
+                        <p:tab title="Examen de Laboratorio" disabled="true">
+
+                        </p:tab>
+                        <p:tab title="Receta Medica" disabled="true">
+                            
+                        </p:tab>
+                        <p:tab title="Generar Orden Medico" disabled="true" >
+                            
+                        </p:tab>
+
+                    </p:tabView>
+                </h:panelGrid>
+
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

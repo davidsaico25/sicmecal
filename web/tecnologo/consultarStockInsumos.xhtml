@@ -18,18 +18,36 @@
                     
                     <div class="ui-fluid">
                         
+                        <p:dialog header="INSUMOS AGOTADOS" widgetVar="insumosAgotadosDialog" visible="true"  showEffect="explode" hideEffect="explode" responsive="true" closeOnEscape="true" modal="true">                            
+                            <p:dataTable id="tableInsumoAgotado" var="insumoAgotado" value="#{consultarStockBean.listInsumo1}" style="text-align: center">
+                                <p:column headerText="Codigo :">
+                                    <p:outputLabel value="#{insumoAgotado.codinsumo}" />
+                                </p:column>
+                                <p:column headerText="Nombre :">
+                                    <p:outputLabel value="#{insumoAgotado.nombre}" style="color: #D20005"/>
+                                </p:column>
+                                <p:column headerText="Cantidad :">
+                                    <p:outputLabel value="#{insumoAgotado.cantidad}" style="color: #D20005"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:outputLabel value="Indicación: " style="text-align: center ; font-weight: bold; color: #D20005" />
+                            <p:outputLabel value=" Necesita abastecer los insumos agotados que se muestran en esta lista."  style="text-align: center ; font-weight: bold; color: #D20005" />
+                        </p:dialog>
+                        
                         <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col3,ui-grid-col-3,ui-grid-col-1" layout="grid">
                             <p:outputLabel value="#{consultarStockBean.usuario.persona.tipoDocumento.toUpperCase()}:"/>
                             <p:inputText id="nroDocumento" placeholder="Nro. Documento" value="#{consultarStockBean.usuario.persona.numeroDocumento}" readonly="true"/>
                         </p:panelGrid>
                         
-                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-2" layout="grid">
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-6,ui-grid-col-2" layout="grid">
                             <p:outputLabel for="nombreTecnologo" value="Tecnologo :"/>
                             <p:inputText id="nombreTecnologo" value="#{consultarStockBean.usuario.persona.apellidop} #{consultarStockBean.usuario.persona.apellidom} #{consultarStockBean.usuario.persona.nombre}" readonly="true" />
+                            <p:outputLabel value=""/>
+                            <p:commandButton oncomplete="PF('insumosAgotadosDialog').show()" value="Insumos Agotados" title="Ver" ></p:commandButton>
                         </p:panelGrid>
                         
                         <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid">
-                            <p:dataTable id="tableConsultarStock" var="Insumo" value="#{consultarStockBean.listInsumo}" widgetVar="insumoTable" emptyMessage="Falta de insumo consultado" filteredValue="#{consultarStockBean.filteredListInsumo}" reflow="true" rows="5" paginator="true" >
+                            <p:dataTable id="tableConsultarStock" var="Insumo" value="#{consultarStockBean.listInsumo}" widgetVar="insumoTable" emptyMessage="Falta de insumo consultado" filteredValue="#{consultarStockBean.filteredListInsumo}" reflow="true" rows="5" paginator="true" style="text-align: center">
                                 <f:facet name="header">
                                     <p:outputPanel>
                                         <p:outputLabel value="Buscar : " />
@@ -67,7 +85,7 @@
                                         <p:outputLabel value="#{consultarStockBean.selectedInsumo.cantidad}">
                                         </p:outputLabel>
                                         <p:outputLabel value="Imagen:" />
-                                        <p:outputLabel value="#{consultarStockBean.selectedInsumo.codinsumo}"/>
+                                        <p:graphicImage name="/images/insumos/#{consultarStockBean.selectedInsumo.codinsumo}.jpg" width="300" />
                                     </p:panelGrid>
                                 </p:outputPanel>
                             </p:dialog>

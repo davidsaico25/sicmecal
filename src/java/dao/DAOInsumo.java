@@ -28,5 +28,21 @@ public class DAOInsumo extends ADAO_crud<Object> implements Serializable {
 
         return listInsumo;
     }
-        
+    
+    public List<Insumo> getListInsumo1() {
+        List<Insumo> listInsumo = null;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from Insumo i where i.cantidad<100");
+            listInsumo = (List<Insumo>) query.list();
+        } catch (Exception e) {
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return listInsumo;
+    }
 }
