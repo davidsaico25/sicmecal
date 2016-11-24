@@ -2,6 +2,8 @@ package dao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import model.CitaMedica;
 import model.Especialidad;
@@ -85,5 +87,27 @@ public class DAOCitaMedica extends ADAO_crud<Object> implements Serializable {
             }
         }
         return listTurno;
+    }
+    
+    public CitaMedica getCitaMedicaParaTriaje() {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        String year = simpleDateFormat.format(date);
+        CitaMedica citaMedica = null;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from CitaMedica where year(fechaCreacion) = :year");
+            query.setParameter("year", Integer.parseInt(year));
+            citaMedica = (CitaMedica) query.uniqueResult();
+            System.out.println("DAO: " + citaMedica.getCodCitaMedica());
+            return citaMedica;
+        } catch (Exception e) {
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 }

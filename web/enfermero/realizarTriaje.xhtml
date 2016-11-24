@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template_user.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        
+        <h:form id="form">
+            
+            <p:growl id="growl" showDetail="true" />
+
+            <p:panelGrid columns="3" class="tableNoBorder">
+
+                <p:outputLabel value="Numero Documento: "/>
+                <p:inputText value="#{realizarTriajeBean.numeroDocumento}" />
+
+                <p:commandButton value="Consultar" actionListener="#{realizarTriajeBean.buscarHistorialClinico}" update=":form:datosPaciente"/>
+
+            </p:panelGrid>
+            
+            <p:panelGrid id="datosPaciente" columns="1" class="tableNoBorder">
+                
+                <p:outputLabel value="Nombre Paciente:" />
+                <p:outputLabel value="#{realizarTriajeBean.persona.nombre} #{realizarTriajeBean.persona.apellidop} #{realizarTriajeBean.persona.apellidom}"/>
+                
+                <p:outputLabel value="Paciente:" />
+                <p:outputLabel value="#{realizarTriajeBean.paciente.username}"/>
+                
+            </p:panelGrid>
+            
+            <p:panelGrid id="datosTriaje" columns="1" class="tableNoBorder">
+                
+                <p:outputLabel value="Observacio:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.observacion}" />
+                
+                <p:outputLabel value="Peso:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.peso}" />
+                
+                <p:outputLabel value="Presion:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.presion}" />
+                
+                <p:commandButton value="Registrar Triaje" actionListener="#{realizarTriajeBean.registrarTriaje}" />
+                
+            </p:panelGrid>
+            
+            <p:commandButton value="Verificar" actionListener="#{realizarTriajeBean.verificar}" />
+
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

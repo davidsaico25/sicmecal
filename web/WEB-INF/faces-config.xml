@@ -72,6 +72,18 @@
             <redirect/>
         </navigation-case>
         
+        <navigation-case>
+            <from-outcome>enfermero</from-outcome>
+            <to-view-id>/enfermero/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>realizarTriaje</from-outcome>
+            <to-view-id>/enfermero/realizarTriaje.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
     </navigation-rule>
     
 </faces-config>
