@@ -39,7 +39,7 @@
                             <h:outputLabel for="password" value="Contrasena: "/>
                             <p:password id="password" value="#{loginBean.usuario.password}" required="true" label="Password" requiredMessage="Ingrese contrasena" />
                             <f:facet name="footer">
-                                <p:commandButton value="Login" update=":menu:growl" action="#{loginBean.login()}" oncomplete="handleLoginRequest(xhr, status, args)" />
+                                <p:commandButton value="Iniciar Sesion" update=":menu:growl" action="#{loginBean.login()}" oncomplete="handleLoginRequest(xhr, status, args)" />
                             </f:facet>
                         </h:panelGrid>
                     </p:dialog>
