@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 11:28:14 AM by Hibernate Tools 4.3.1
+// Generated Nov 24, 2016 2:14:55 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,6 +13,8 @@ public class HistorialClinico  implements java.io.Serializable {
 
      private String numeroHistorialClinico;
      private Paciente paciente;
+     private String antecedentes;
+     private String tipoSangre;
      private Set diagnosticos = new HashSet(0);
 
     public HistorialClinico() {
@@ -23,9 +25,11 @@ public class HistorialClinico  implements java.io.Serializable {
         this.numeroHistorialClinico = numeroHistorialClinico;
         this.paciente = paciente;
     }
-    public HistorialClinico(String numeroHistorialClinico, Paciente paciente, Set diagnosticos) {
+    public HistorialClinico(String numeroHistorialClinico, Paciente paciente, String antecedentes, String tipoSangre, Set diagnosticos) {
        this.numeroHistorialClinico = numeroHistorialClinico;
        this.paciente = paciente;
+       this.antecedentes = antecedentes;
+       this.tipoSangre = tipoSangre;
        this.diagnosticos = diagnosticos;
     }
    
@@ -42,6 +46,20 @@ public class HistorialClinico  implements java.io.Serializable {
     
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    public String getAntecedentes() {
+        return this.antecedentes;
+    }
+    
+    public void setAntecedentes(String antecedentes) {
+        this.antecedentes = antecedentes;
+    }
+    public String getTipoSangre() {
+        return this.tipoSangre;
+    }
+    
+    public void setTipoSangre(String tipoSangre) {
+        this.tipoSangre = tipoSangre;
     }
     public Set getDiagnosticos() {
         return this.diagnosticos;

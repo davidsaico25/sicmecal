@@ -14,70 +14,75 @@ and open the template in the editor.
     <ui:define name="content">
 
         <h:form id="form">
-
-            <p:growl id="growl" life="3000" />
-
-            <h:panelGrid columns="2" columnClasses="label, value">
-                <h:outputText value="Numero Documento: *" />
-                <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.numeroDocumento}" required="true"/>
-            </h:panelGrid>
-            <p:commandButton value="Buscar" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}" update="panel"/>
-
-            <p:separator/>
-            <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:outputLabel value="Nro. Historial Clinico:"/>
-                    <p:inputText id="nroHistorialClinico" value="#{registrarAnalisisLaboratorioBean.historialClinico.numeroHistorialClinico}" readonly="true" />
-                    <p:outputLabel value="Paciente:"/>
-                    <p:inputText id="nombrePaciente" value="#{registrarAnalisisLaboratorioBean.persona.nombre} #{registrarAnalisisLaboratorioBean.persona.apellidop} #{registrarAnalisisLaboratorioBean.persona.apellidom}" readonly="true" />
-                    <p:outputLabel value="Sexo" />
-                    <p:selectOneMenu id="sexo" value="#{registrarAnalisisLaboratorioBean.persona.sexo}" disabled="true" style="width:125px">
-                        <f:selectItem itemLabel="Seleccione" itemValue="" />
-                        <f:selectItem itemLabel="Masculino" itemValue="M" />
-                        <f:selectItem itemLabel="Femenino" itemValue="F" />
-                    </p:selectOneMenu>
-                    <h:outputText value="Fecha Nacimiento: " />
-                    <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.fechaNacimiento}" readonly="true"/>
-
+            <p:growl id="growl" life="3000"/>
+            <h:panelGroup id="panelTotal">
+                <h:panelGrid id="gridHistorialClinico" columns="4" cellpadding="5">
+                    <h:outputLabel for="numeroDocumento" value="Numero Documento: *" />
+                    <p:inputText id="numeroDocumento" value="#{registrarAnalisisLaboratorioBean.persona.numeroDocumento}" required="true" label="Numero de Documento">
+                        <p:keyFilter regEx="/[\d\.]/"/>
+                        <f:validateLength minimum="8" maximum="10" />
+                    </p:inputText>
+                    <p:message for="numeroDocumento" />
                 </h:panelGrid>
+                <p:commandButton value="Buscar" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}" update="panelTotal"/>
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Peso:" />
-                    <h:outputText value="Presion:" />
-                    <p:inputText value="" readonly="true"/>
-                    <p:inputText value="" readonly="true"/>
-                </h:panelGrid>
+                <p:separator/>
+                <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel value="Nro. Historial Clinico:"/>
+                        <p:inputText id="nroHistorialClinico" value="#{registrarAnalisisLaboratorioBean.historialClinico.numeroHistorialClinico}" readonly="true" />
+                        <p:outputLabel value="Paciente:"/>
+                        <p:inputText id="nombrePaciente" value="#{registrarAnalisisLaboratorioBean.persona.nombre} #{registrarAnalisisLaboratorioBean.persona.apellidop} #{registrarAnalisisLaboratorioBean.persona.apellidom}" readonly="true" />
+                        <p:outputLabel value="Sexo" />
+                        <p:selectOneMenu id="sexo" value="#{registrarAnalisisLaboratorioBean.persona.sexo}" disabled="true"  style="width:125px">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                            <f:selectItem itemLabel="Femenino" itemValue="F" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Fecha Nacimiento: " />
+                        <p:inputText value="#{registrarAnalisisLaboratorioBean.persona.fechaNacimiento}" readonly="true"/>
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:tabView dynamic="true" cache="true" activeIndex="1" >
-                        <p:tab title="Diagnostico" disabled="true">
-                            <h:panelGrid columns="2" cellpadding="10">
-                                <h:outputText value="Receta Médica: *" />
-                                <p:inputTextarea value="" placeholder="Receta Médica" rows="10" cols="33" />
-                                <h:outputText value="Medicamento: *" />
-                                <p:inputTextarea value="" placeholder="Medicamento" rows="10" cols="33" />
-                            </h:panelGrid>
+                    </h:panelGrid>
 
-                            <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}"/>
-                        </p:tab>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Peso:" />
+                        <h:outputText value="Presion:" />
+                        <p:inputText value="" readonly="true"/>
+                        <p:inputText value="" readonly="true"/>
+                    </h:panelGrid>
 
-                        <p:tab title="Examen de Laboratorio">
-                            <h:panelGrid id="exam" columns="2" cellpadding="10">
-                                <p:outputLabel for="nombreExamenLaboratorio" value="Nombre de Analisis: "/>
-                                <p:inputText id="nombreExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.examenLaboratorio.nombre}" readonly="true"/>
-                                <p:outputLabel value="Indicador: "/>
-                                <p:inputText id="nombreIndicador" value="#{registrarAnalisisLaboratorioBean.indicador.nombre}" readonly="true"/>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:tabView dynamic="true" cache="true" activeIndex="1" >
+                            <p:tab title="Diagnostico" disabled="true">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <h:outputText value="Receta Médica: *" />
+                                    <p:inputTextarea value="" placeholder="Receta Médica" rows="10" cols="33" />
+                                    <h:outputText value="Medicamento: *" />
+                                    <p:inputTextarea value="" placeholder="Medicamento" rows="10" cols="33" />
+                                </h:panelGrid>
 
-                                <p:outputLabel value="Muestra" for="muestraExamenLaboratorio" />
-                                <p:inputText id="muestraExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.muestraExamen}"/>
-                                <p:commandButton value="Agregar" actionListener="#{registrarAnalisisLaboratorioBean.agregarListaMuestra}" update="exam"/>
-                                <p:orderList id="listaMuestra" value="#{registrarAnalisisLaboratorioBean.listaMuestraExamen}" var="muestraExamen" disabled="true" controlsLocation="none" itemLabel="#{muestraExamen}" itemValue="#{muestraExamen}"/>
-                                <p:commandButton value="Registrar" actionListener="#{registrarAnalisisLaboratorioBean.registrarAnalisis}" update=":form:growl"/>
-                            </h:panelGrid>
-                        </p:tab>
-                    </p:tabView>
-                </h:panelGrid>
-            </p:panel>
+                                <p:commandButton value="Generar Examen de Laboratorio" actionListener="#{registrarAnalisisLaboratorioBean.mostrarHC}"/>
+                            </p:tab>
+
+                            <p:tab title="Examen de Laboratorio">
+                                <h:panelGrid id="exam" columns="2" cellpadding="10">
+                                    <p:outputLabel for="nombreExamenLaboratorio" value="Nombre de Analisis: "/>
+                                    <p:inputText id="nombreExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.examenLaboratorio.nombre}" readonly="true"/>
+                                    <p:outputLabel value="Indicador: "/>
+                                    <p:inputText id="nombreIndicador" value="#{registrarAnalisisLaboratorioBean.indicador.nombre}" readonly="true"/>
+
+                                    <p:outputLabel value="Muestra" for="muestraExamenLaboratorio" />
+                                    <p:inputText id="muestraExamenLaboratorio" value="#{registrarAnalisisLaboratorioBean.muestraExamen}"/>
+                                    <p:commandButton value="Agregar" actionListener="#{registrarAnalisisLaboratorioBean.agregarListaMuestra}" update="exam"/>
+                                    <p:orderList id="listaMuestra" value="#{registrarAnalisisLaboratorioBean.listaMuestraExamen}" var="muestraExamen" required="true" controlsLocation="none" itemLabel="#{muestraExamen}" itemValue="#{muestraExamen}"/>
+                                    <p:message for="listaMuestra" />
+                                    <p:commandButton value="Registrar" actionListener="#{registrarAnalisisLaboratorioBean.registrarAnalisis}" update=":form:growl"/>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </h:panelGrid>
+                </p:panel>
+            </h:panelGroup>
         </h:form>
     </ui:define>
 

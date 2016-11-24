@@ -18,31 +18,31 @@
                         <p:messages />
                         <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
                             <p:outputLabel for="tipoDocumento" value="Tipo Documento:" />
-                            <p:selectOneMenu id="tipoDocumento" value="#{registrarHistorialClinicoBean.persona.tipoDocumento}" required="true" style="width:125px">
+                            <p:selectOneMenu id="tipoDocumento" value="#{registrarHistorialClinicoBean.persona.tipoDocumento}" required="true" requiredMessage="Debe ingresar tipo documento" style="width:125px">
                                 <p:ajax update="dni"/>
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />
                                 <f:selectItem itemLabel="DNI" itemValue="dni" />
                                 <f:selectItem itemLabel="Pasaporte" itemValue="pasaporte" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Numero Documento: *" />
-                            <p:inputText id="dni" value="#{registrarHistorialClinicoBean.persona.numeroDocumento}" required="true" label="Numero Documento">
+                            <p:outputLabel value="Numero Documento:" />
+                            <p:inputText id="dni" value="#{registrarHistorialClinicoBean.persona.numeroDocumento}" required="true" requiredMessage="Debe ingresar su numero de documento" label="Numero Documento">
                                 <p:keyFilter regEx="/[\d\.]/"/>
                                 <f:validateLength minimum="#{registrarHistorialClinicoBean.persona.tipoDocumento.equalsIgnoreCase('dni') ? 8 : 10}" maximum="#{registrarHistorialClinicoBean.persona.tipoDocumento.equalsIgnoreCase('dni') ? 8 : 10}" />
                             </p:inputText>
 
-                            <p:outputLabel value="Nombre: *" />
+                            <p:outputLabel value="Nombre:" />
                             <p:inputText value="#{registrarHistorialClinicoBean.persona.nombre}" required="true" label="Nombre">
                                 <p:keyFilter regEx="/[a-z_]/i"/>
                             </p:inputText>
 
-                            <p:outputLabel value="Apellido Paterno: *" />
-                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidop}" required="true" label="Nombre">
+                            <p:outputLabel value="Apellido Paterno:" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidop}" required="true" label="Apellido Paterno">
                                 <p:keyFilter regEx="/[a-z_]/i"/>
                             </p:inputText>
 
-                            <p:outputLabel value="Apellido Materno: *" />
-                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidom}" required="true" label="Nombre">
+                            <p:outputLabel value="Apellido Materno:" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.apellidom}" required="true" label="Apellido Materno">
                                 <p:keyFilter regEx="/[a-z_]/i"/>
                             </p:inputText>
 
@@ -54,7 +54,13 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Fecha Nacimiento: " />
-                            <p:calendar value="#{registrarHistorialClinicoBean.persona.fechaNacimiento}" effect="fold" timeZone="GMT-5" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Inserte fecha de nacimiento" showButtonPanel="true" locale="es"/>
+                            <p:calendar value="#{registrarHistorialClinicoBean.persona.fechaNacimiento}" effect="fold" timeZone="GMT-5" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Inserte fecha de nacimiento" showButtonPanel="true" locale="es" maxdate="#{registrarHistorialClinicoBean.maxDate}"/>
+                            
+                            <p:outputLabel value="Correo:" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.persona.correo}" required="true" requiredMessage="Correo es necesario para envio de documentos" label="Correo">
+                                <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>
+                            </p:inputText>
+                            
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>
@@ -63,13 +69,47 @@
                     <p:panel header="Usuario">
                         <p:messages />
                         <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
-                            <p:outputLabel value="Usuario: " />
-                            <p:inputText value="#{registrarHistorialClinicoBean.usuario.username}" required="true" requiredMessage="Debe ingresar nombre de usuario">
-                                <p:keyFilter regEx="/[a-z0-9_]/i"/>
-                            </p:inputText>
+                            <p:outputLabel value="Usuario:" />
+                            <p:outputLabel value="#{registrarHistorialClinicoBean.persona.numeroDocumento}"/>
 
-                            <p:outputLabel value="Contrasena: " />
+                            <p:outputLabel value="Contrasena:" />
                             <p:password value="#{registrarHistorialClinicoBean.usuario.password}" feedback="true" inline="true" required="true" requiredMessage="Debe ingresar una contrasena" />
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                
+                <p:tab id="historialClinico" title="Historial Clinico">
+                    <p:panel header="Usuario">
+                        <p:messages />
+                        <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
+                            <p:outputLabel value="Nro Historial Clinico: " />
+                            <p:outputLabel value="#{registrarHistorialClinicoBean.persona.numeroDocumento}"/>
+                            
+                            <p:outputLabel for="tipoSangre" value="Tipo Sangre:" />
+                            <p:selectOneMenu id="tipoSangre" value="#{registrarHistorialClinicoBean.historialClinico.tipoSangre}" required="true" requiredMessage="Debe ingresar su grupo Sanguineo" style="width:125px">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                <f:selectItem itemLabel="O-" itemValue="O-" />
+                                <f:selectItem itemLabel="O+" itemValue="O+" />
+                                <f:selectItem itemLabel="A-" itemValue="A-" />
+                                <f:selectItem itemLabel="A+" itemValue="A+" />
+                                <f:selectItem itemLabel="B-" itemValue="B-" />
+                                <f:selectItem itemLabel="B+" itemValue="B+" />
+                                <f:selectItem itemLabel="AB-" itemValue="AB-" />
+                                <f:selectItem itemLabel="AB+" itemValue="AB+" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Antecedentes:" />
+                            <p:inputTextarea value="#{registrarHistorialClinicoBean.historialClinico.antecedentes}" />
+                            
+                            <p:outputLabel value="Nombre Contacto:" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.paciente.nombreContacto}" >
+                                <p:keyFilter regEx="/[a-z_]/i"/>
+                            </p:inputText>
+                            
+                            <p:outputLabel value="Telefono Contacto:" />
+                            <p:inputText value="#{registrarHistorialClinicoBean.paciente.numeroContacto}" >
+                                <p:keyFilter regEx="/[\d\.]/"/>
+                            </p:inputText>
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>
@@ -90,7 +130,7 @@
 
                             <p:panelGrid columns="2" columnClasses="label, value" styleClass="tableNoBorder">
                                 <p:outputLabel value="Usuario: " />
-                                <p:outputLabel value="#{registrarHistorialClinicoBean.usuario.username}" styleClass="outputLabel"/>
+                                <p:outputLabel value="#{registrarHistorialClinicoBean.persona.numeroDocumento}" styleClass="outputLabel"/>
                             </p:panelGrid>
                         </p:panelGrid>
 

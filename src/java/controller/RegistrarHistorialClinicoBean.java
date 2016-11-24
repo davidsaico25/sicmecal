@@ -6,6 +6,7 @@ import dao.DAOPersona;
 import dao.DAOUsuario;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,13 +24,26 @@ import org.primefaces.event.FlowEvent;
 public class RegistrarHistorialClinicoBean implements Serializable {
  
     private Persona persona;
+    
     private Usuario usuario;
-     
+    
+    private Paciente paciente;
+    
+    private HistorialClinico historialClinico;
+    
+    String maxDate;
     private boolean skip;
 
     public RegistrarHistorialClinicoBean() {
         persona = new Persona();
         usuario = new Usuario();
+        paciente = new Paciente();
+        historialClinico = new HistorialClinico();
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            maxDate = simpleDateFormat.format(date);
+        } catch (Exception ex) {}
     }
     
     public String registrarHistorialClinico() {
@@ -40,16 +54,15 @@ public class RegistrarHistorialClinicoBean implements Serializable {
         daoPersona.crear(persona);
         Perfil perfil = new Perfil();
         perfil.setCodPerfil(BigDecimal.valueOf(2));
+        usuario.setUsername(persona.getNumeroDocumento());
         usuario.setPerfil(perfil);
         usuario.setPersona(persona);
         usuario.setEstado('A');
         usuario.setFechaCreacion(new Date());
         daoUsuario.crear(usuario);
-        Paciente paciente = new Paciente();
         paciente.setUsuario(usuario);
         paciente.setEstado('A');
         daoPaciente.crear(paciente);
-        HistorialClinico historialClinico = new HistorialClinico();
         historialClinico.setNumeroHistorialClinico(persona.getNumeroDocumento());
         historialClinico.setPaciente(paciente);
         daoHistorialClinico.crear(historialClinico);
@@ -73,12 +86,36 @@ public class RegistrarHistorialClinicoBean implements Serializable {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public HistorialClinico getHistorialClinico() {
+        return historialClinico;
+    }
+
+    public void setHistorialClinico(HistorialClinico historialClinico) {
+        this.historialClinico = historialClinico;
+    }
      
     public void save() {
         FacesMessage msg = new FacesMessage("Successful", "Registrado");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
+    public String getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(String maxDate) {
+        this.maxDate = maxDate;
+    }
+    
     public boolean isSkip() {
         return skip;
     }

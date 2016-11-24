@@ -32,14 +32,20 @@
             
             <p:panelGrid id="datosTriaje" columns="1" class="tableNoBorder">
                 
-                <p:outputLabel value="Observacio:" />
-                <p:inputText value="#{realizarTriajeBean.triaje.observacion}" />
+                <p:outputLabel value="Motivo Consulta:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.motivoConsulta}" />
                 
                 <p:outputLabel value="Peso:" />
                 <p:inputText value="#{realizarTriajeBean.triaje.peso}" />
                 
-                <p:outputLabel value="Presion:" />
+                <p:outputLabel value="Presión:" />
                 <p:inputText value="#{realizarTriajeBean.triaje.presion}" />
+                
+                <p:outputLabel value="Talla:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.talla}" />
+                
+                <p:outputLabel value="Observación:" />
+                <p:inputText value="#{realizarTriajeBean.triaje.observacion}" />
                 
                 <p:commandButton value="Registrar Triaje" actionListener="#{realizarTriajeBean.registrarTriaje}" />
                 

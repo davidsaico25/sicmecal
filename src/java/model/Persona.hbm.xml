@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 22, 2016 11:28:17 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 24, 2016 2:14:56 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Persona" table="PERSONA" schema="DB_SICMECAL" optimistic-lock="version">
         <id name="numeroDocumento" type="string">
@@ -29,7 +29,7 @@
         <property name="correo" type="string">
             <column name="CORREO" length="45" not-null="true" />
         </property>
-        <property name="fechaModificacion" type="date">
+        <property name="fechaModificacion" type="date" insert="false" update="false">
             <column name="FECHA_MODIFICACION" length="7" not-null="true" />
         </property>
         <set name="usuarios" table="USUARIO" inverse="true" lazy="true" fetch="select">

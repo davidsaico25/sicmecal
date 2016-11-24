@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 11:28:14 AM by Hibernate Tools 4.3.1
+// Generated Nov 24, 2016 2:14:55 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -24,11 +24,9 @@ public class Diagnostico  implements java.io.Serializable {
     }
 
 	
-    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, String descripcion, String medico, Date fecha) {
+    public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, Date fecha) {
         this.codDiagnostico = codDiagnostico;
         this.historialClinico = historialClinico;
-        this.descripcion = descripcion;
-        this.medico = medico;
         this.fecha = fecha;
     }
     public Diagnostico(BigDecimal codDiagnostico, HistorialClinico historialClinico, String descripcion, String medico, Date fecha, RecetaMedica recetaMedica, Triaje triaje, OrdenMedico ordenMedico) {

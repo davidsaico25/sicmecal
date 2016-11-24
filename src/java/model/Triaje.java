@@ -1,5 +1,5 @@
 package model;
-// Generated Nov 22, 2016 11:28:14 AM by Hibernate Tools 4.3.1
+// Generated Nov 24, 2016 2:14:55 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,19 +12,32 @@ public class Triaje  implements java.io.Serializable {
 
      private BigDecimal codDiagnostico;
      private Diagnostico diagnostico;
-     private String observacion;
+     private String motivoConsulta;
      private BigDecimal peso;
      private BigDecimal presion;
+     private BigDecimal talla;
+     private String observacion;
      private String enfermera;
 
     public Triaje() {
     }
 
-    public Triaje(Diagnostico diagnostico, String observacion, BigDecimal peso, BigDecimal presion, String enfermera) {
+	
+    public Triaje(Diagnostico diagnostico, String motivoConsulta, BigDecimal peso, BigDecimal presion, BigDecimal talla, String enfermera) {
+        this.diagnostico = diagnostico;
+        this.motivoConsulta = motivoConsulta;
+        this.peso = peso;
+        this.presion = presion;
+        this.talla = talla;
+        this.enfermera = enfermera;
+    }
+    public Triaje(Diagnostico diagnostico, String motivoConsulta, BigDecimal peso, BigDecimal presion, BigDecimal talla, String observacion, String enfermera) {
        this.diagnostico = diagnostico;
-       this.observacion = observacion;
+       this.motivoConsulta = motivoConsulta;
        this.peso = peso;
        this.presion = presion;
+       this.talla = talla;
+       this.observacion = observacion;
        this.enfermera = enfermera;
     }
    
@@ -42,12 +55,12 @@ public class Triaje  implements java.io.Serializable {
     public void setDiagnostico(Diagnostico diagnostico) {
         this.diagnostico = diagnostico;
     }
-    public String getObservacion() {
-        return this.observacion;
+    public String getMotivoConsulta() {
+        return this.motivoConsulta;
     }
     
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
+    public void setMotivoConsulta(String motivoConsulta) {
+        this.motivoConsulta = motivoConsulta;
     }
     public BigDecimal getPeso() {
         return this.peso;
@@ -62,6 +75,20 @@ public class Triaje  implements java.io.Serializable {
     
     public void setPresion(BigDecimal presion) {
         this.presion = presion;
+    }
+    public BigDecimal getTalla() {
+        return this.talla;
+    }
+    
+    public void setTalla(BigDecimal talla) {
+        this.talla = talla;
+    }
+    public String getObservacion() {
+        return this.observacion;
+    }
+    
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
     public String getEnfermera() {
         return this.enfermera;

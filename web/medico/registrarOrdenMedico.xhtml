@@ -10,74 +10,79 @@
         <h:form id="form">
 
             <p:growl id="growl" life="3000" />
-
-            <h:panelGrid columns="2" cellpadding="10">
-                <h:outputText value="Numero Documento: *" />
-                <p:inputText value="#{registrarOrdenMedicoBean.persona.numeroDocumento}" required="true"/>
-            </h:panelGrid>
-            <p:commandButton value="Buscar" actionListener = "#{registrarOrdenMedicoBean.mostrarHC}" update="panel"/>
-
-            <p:separator/>
-
-            <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
+            <h:panelGroup id="panelTotal">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:outputLabel value="Nro. Historial Clinico:"/>
-                    <p:inputText id="nroHistorialClinico" value="#{registrarOrdenMedicoBean.historialClinico.numeroHistorialClinico}" readonly="true" />
-                    <p:outputLabel value="Paciente:"/>
-                    <p:inputText id="nombrePaciente" value="#{registrarOrdenMedicoBean.persona.nombre} #{registrarOrdenMedicoBean.persona.apellidop} #{registrarOrdenMedicoBean.persona.apellidom}" readonly="true" />
-                    <p:outputLabel value="Sexo" />
-                    <p:selectOneMenu id="sexo" value="#{registrarOrdenMedicoBean.persona.sexo}" disabled="true" style="width:125px">
-                        <f:selectItem itemLabel="Seleccione" itemValue="" />
-                        <f:selectItem itemLabel="Masculino" itemValue="M" />
-                        <f:selectItem itemLabel="Femenino" itemValue="F" />
-                    </p:selectOneMenu>
-                    <h:outputText value="Fecha Nacimiento: " />
-                    <p:inputText id="fechaNacimiento" value="#{registrarOrdenMedicoBean.persona.fechaNacimiento}" readonly="true"/>
-
+                    <h:outputText value="Numero Documento: *" />
+                    <p:inputText id="numeroDocumento" value="#{registrarOrdenMedicoBean.persona.numeroDocumento}" required="true" label="Numero de Documento">
+                        <p:keyFilter regEx="/[\d\.]/"/>
+                        <f:validateLength minimum="8" maximum="10" />
+                    </p:inputText>
+                    <p:message for="numeroDocumento" />
                 </h:panelGrid>
+                <p:commandButton value="Buscar" actionListener = "#{registrarOrdenMedicoBean.mostrarHC}" update="panelTotal"/>
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Peso:" />
-                    <h:outputText value="Presion:" />
-                    <p:inputText value="" readonly="true"/>
-                    <p:inputText value="" readonly="true"/>
-                </h:panelGrid>
+                <p:separator/>
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:tabView dynamic="true" cache="true" activeIndex="3" >
-                        <p:tab title="Diagnostico" disabled="true">
+                <p:panel id="panel" header="Historial Clinico" style="margin-bottom:20px;">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel value="Nro. Historial Clinico:"/>
+                        <p:inputText id="nroHistorialClinico" value="#{registrarOrdenMedicoBean.historialClinico.numeroHistorialClinico}" readonly="true" />
+                        <p:outputLabel value="Paciente:"/>
+                        <p:inputText id="nombrePaciente" value="#{registrarOrdenMedicoBean.persona.nombre} #{registrarOrdenMedicoBean.persona.apellidop} #{registrarOrdenMedicoBean.persona.apellidom}" readonly="true" />
+                        <p:outputLabel value="Sexo" />
+                        <p:selectOneMenu id="sexo" value="#{registrarOrdenMedicoBean.persona.sexo}" disabled="true" style="width:125px">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                            <f:selectItem itemLabel="Femenino" itemValue="F" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Fecha Nacimiento: " />
+                        <p:inputText id="fechaNacimiento" value="#{registrarOrdenMedicoBean.persona.fechaNacimiento}" readonly="true"/>
 
-                        </p:tab>
+                    </h:panelGrid>
 
-                        <p:tab title="Examen de Laboratorio" disabled="true">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Peso:" />
+                        <h:outputText value="Presion:" />
+                        <p:inputText value="" readonly="true"/>
+                        <p:inputText value="" readonly="true"/>
+                    </h:panelGrid>
 
-                        </p:tab>
-                        <p:tab title="Receta Medica" disabled="true">
-                            
-                        </p:tab>
-                        <p:tab title="Generar Orden Medico" >
-                            <h:panelGrid columns="2" cellpadding="10">
-                                
-                                <p:outputLabel value="Nombre de Examen de Laboratorio: "/>
-                                <p:selectOneMenu id="nombreExamenLaboratorio"  value="#{registrarOrdenMedicoBean.examenLaboratorio.codExamenLaboratorio}" autoWidth="true" panelStyle="width:75px" effect="fold">
-                                    <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems  value="#{registrarOrdenMedicoBean.listExamenLaboratorio}" var="examenLaboratorio" itemValue="#{examenLaboratorio.codExamenLaboratorio}" itemLabel="#{examenLaboratorio.nombre}" />
-                                </p:selectOneMenu>
-                                
-                                <p:outputLabel value="Indicador: "/>
-                                <p:selectOneMenu id="indicador" value="#{registrarOrdenMedicoBean.indicador.codIndicador}" autoWidth="true" panelStyle="width:75px" effect="fold">
-                                    <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems  value="#{registrarOrdenMedicoBean.listIndicador}" var="indicador" itemValue="#{indicador.codIndicador}" itemLabel="#{indicador.nombre}" />
-                                </p:selectOneMenu>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:tabView dynamic="true" cache="true" activeIndex="3" >
+                            <p:tab title="Diagnostico" disabled="true">
 
-                                <p:commandButton value="Registrar" actionListener="#{registrarOrdenMedicoBean.registrar}" update=":form:growl"/>
-                            </h:panelGrid>
-                        </p:tab>
+                            </p:tab>
 
-                    </p:tabView>
-                </h:panelGrid>
+                            <p:tab title="Examen de Laboratorio" disabled="true">
 
-            </p:panel>
+                            </p:tab>
+                            <p:tab title="Receta Medica" disabled="true">
+
+                            </p:tab>
+                            <p:tab title="Generar Orden Medico" >
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                    <p:outputLabel value="Nombre de Examen de Laboratorio: "/>
+                                    <p:selectOneMenu id="nombreExamenLaboratorio"  value="#{registrarOrdenMedicoBean.examenLaboratorio.codExamenLaboratorio}" autoWidth="true" panelStyle="width:75px" effect="fold">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems  value="#{registrarOrdenMedicoBean.listExamenLaboratorio}" var="examenLaboratorio" itemValue="#{examenLaboratorio.codExamenLaboratorio}" itemLabel="#{examenLaboratorio.nombre}" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Indicador: "/>
+                                    <p:selectOneMenu id="indicador" value="#{registrarOrdenMedicoBean.indicador.codIndicador}" autoWidth="true" panelStyle="width:75px" effect="fold">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems  value="#{registrarOrdenMedicoBean.listIndicador}" var="indicador" itemValue="#{indicador.codIndicador}" itemLabel="#{indicador.nombre}" />
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton value="Registrar" actionListener="#{registrarOrdenMedicoBean.registrar}" update=":form:growl"/>
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:panelGroup>
         </h:form>
     </ui:define>
 

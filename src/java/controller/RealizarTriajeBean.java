@@ -5,7 +5,6 @@ import dao.DAODiagnostico;
 import dao.DAOHistorialClinico;
 import dao.DAOTriaje;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -65,8 +64,6 @@ public class RealizarTriajeBean implements Serializable {
     public void registrarTriaje(ActionEvent actionEvent) {
         daoDiagnostico = new DAODiagnostico();
         diagnostico = new Diagnostico();
-        diagnostico.setDescripcion(" ");
-        diagnostico.setMedico(" ");
         diagnostico.setFecha(new Date());
         diagnostico.setHistorialClinico(historialClinico);
         daoDiagnostico.crear(diagnostico);
